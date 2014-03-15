@@ -2,7 +2,7 @@
 
 Map application that displays cctv cameras and lets you upload new ones using the [cctvwatch-api](https://github.com/moklick/cctvwatch-api). 
 
-## Install 
+## Installation 
 ``` 
 npm install
 bower install
