@@ -6,7 +6,7 @@ Map application that displays CCTV cameras and lets you upload new ones using th
 ``` 
 npm install
 bower install
-cd bower_compontens/leaflet/ && npm install
+cd bower_components/leaflet/ && npm install
 ```
 
 ## Run Application
