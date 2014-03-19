@@ -25,6 +25,7 @@ header{
 }
 header .logo{
 	line-height:1.1em;
+	display: inline-block;
 }
 .app{
 	padding-top:3em;
@@ -33,4 +34,9 @@ header .logo{
 #map{
 	height:100%;
 	padding-top:3em;
+}
+
+#addCam{
+	float:right;
+	cursor: pointer;
 }
