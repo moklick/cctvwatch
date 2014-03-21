@@ -31,4 +31,3 @@ Heatmap
 Routing um die cams
 
 Overlay mit anderen Metadaten (Kriminalität, Kitas ...)
-<
