@@ -9,8 +9,8 @@ module.exports = Backbone.Router.extend({
         'addCam': 'addCam'
     },
     camMap: function () {
-        console.log('camMap');
-        this.changePage(new CamMapView());
+        var mapView = new CamMapView();
+        mapView.render();
     },
     addCam: function () {
         console.log('addCam');
