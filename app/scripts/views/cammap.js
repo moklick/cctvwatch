@@ -63,10 +63,11 @@ module.exports = Backbone.View.extend({
         $('#addCamForm').show();
     },
     updatePosition: function(latlng) {
-        this.cam.set({location: [lat,long]});
-        var lat = latlng.lat, long = latlng.lng;
+        var lat = latlng.lat, 
+        lng = latlng.lng;
+        this.cam.set({location: [lat,lng]});
         $('.position .lat').text(lat);
-        $('.position .long').text(long);
+        $('.position .long').text(lng);
     },
     markCam: function() {
         this.cam.save();
