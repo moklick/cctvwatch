@@ -19,5 +19,4 @@ module.exports = Backbone.Router.extend({
         view.render();
         $('body').html(view.el);
     }
-
 });
