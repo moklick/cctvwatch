@@ -3,27 +3,30 @@ window._ = require('lodash');
 window.L = require('leaflet');
 var Backbone = require('backbone');
 Backbone.$ = window.$;
-//Backbone._ = _;
 
 module.exports = Backbone.View.extend({
     template: $('#mapViewTemplate').html(),
-    className:'global',
+    className: 'global',
     events: {
-        'click addCamLink': 'addCamLink'
+        'click #addCam': 'addCamLink',
+        'click #markBtn': 'markCam'
     },
     map: {},
-    render: function () {
+    initialize: function() {
+       // _.bindAll(this, 'addCamLink', 'showPosition');
+    },
+    render: function() {
 
         var template = _.template(this.template);
         this.$el.html(template());
         $('body').html(this.el);
 
         this.initMap();
-        
+
         return this;
     },
 
-    initMap : function(){
+    initMap: function() {
         this.map = new L.Map('map', {
             center: [52.520, 13.385],
             zoom: 11
@@ -31,6 +34,39 @@ module.exports = Backbone.View.extend({
         var tileLayer = new L.TileLayer('http://{s}.tiles.mapbox.com/v3/moklick.hh7gbc50/{z}/{x}/{y}.png', {
             attribution: '<a href="http://mapbox.com/about/maps" target="_blank">Mapbox</a> |  Map data © <a href="http://www.openstreetmap.org">OpenStreetMap contributors</a>'
         }).addTo(this.map);
-    }
+    },
 
+    addCamLink: function() {
+        var self = this;
+        navigator.geolocation.getCurrentPosition(function(location) {
+            // TODO: show error if location cannot be detected
+            self.showPosition(location.coords.latitude, location.coords.longitude);
+        });
+    },
+    showPosition: function(lat, long) {
+        L.Icon.Default.imagePath = 'images';
+        var latlng = new L.LatLng(lat,long);
+        this.map.setView(latlng, 18);
+        this.showCamForm();
+        this.updatePosition(latlng);
+        var marker = new L.Marker(latlng, {draggable: true});
+        marker.on('drag', _.bind(function(e) {
+            this.updatePosition(marker._latlng);
+        }, this));
+        marker.addTo(this.map);
+    },
+    showCamForm: function() {
+        $('#map').css('height', '70%');
+        $('#addCamForm').show();
+    },
+    updatePosition: function(latlng) {
+        var lat = latlng.lat, long = latlng.lng;
+        $('.position .lat').text(lat);
+        $('.position .long').text(long);
+    },
+    markCam: function() {
+        var data = {
+
+        }
+    }
 });
