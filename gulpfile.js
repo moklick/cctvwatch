@@ -59,7 +59,7 @@ gulp.task('lint', function () {
 
 // Images
 gulp.task('images', function () {
-    return gulp.src('app/images/**/*')
+    return gulp.src(['app/images/**/*', 'app/bower_components/leaflet-bower/dist/images/*'])
         .pipe($.cache($.imagemin({
             optimizationLevel: 3,
             progressive: true,
