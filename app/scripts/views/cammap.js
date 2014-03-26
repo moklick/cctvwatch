@@ -2,6 +2,8 @@ window.$ = require('jquery');
 window._ = require('lodash');
 window.L = require('leaflet');
 var Backbone = require('backbone');
+var cctvModel = require('../models/cctvModel.js');
+
 Backbone.$ = window.$;
 
 module.exports = Backbone.View.extend({
@@ -12,8 +14,8 @@ module.exports = Backbone.View.extend({
         'click #markBtn': 'markCam'
     },
     map: {},
+    cam: new cctvModel,
     initialize: function() {
-       // _.bindAll(this, 'addCamLink', 'showPosition');
     },
     render: function() {
 
@@ -46,6 +48,7 @@ module.exports = Backbone.View.extend({
     showPosition: function(lat, long) {
         L.Icon.Default.imagePath = 'images';
         var latlng = new L.LatLng(lat,long);
+        this.cam.set({location: [lat,long]});
         this.map.setView(latlng, 18);
         this.showCamForm();
         this.updatePosition(latlng);
@@ -60,13 +63,12 @@ module.exports = Backbone.View.extend({
         $('#addCamForm').show();
     },
     updatePosition: function(latlng) {
+        this.cam.set({location: [lat,long]});
         var lat = latlng.lat, long = latlng.lng;
         $('.position .lat').text(lat);
         $('.position .long').text(long);
     },
     markCam: function() {
-        var data = {
-
-        }
+        this.cam.save();
     }
 });

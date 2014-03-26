@@ -2,6 +2,7 @@ window.$ = require('jquery');
 window._ = require('lodash');
 window.L = require('leaflet');
 var Backbone = require('backbone');
+
 Backbone.$ = window.$;
 
 module.exports = Backbone.Model.extend({
