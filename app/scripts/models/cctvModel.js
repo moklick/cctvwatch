@@ -6,7 +6,7 @@ var Backbone = require('backbone');
 Backbone.$ = window.$;
 
 module.exports = Backbone.Model.extend({
-	urlRoot: 'http://localhost:1337/cctv/create',
+	urlRoot: 'http://localhost:1337/cctv',
     defaults: {
         location : [],
         owner: 'no owner defined'
