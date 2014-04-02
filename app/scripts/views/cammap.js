@@ -15,8 +15,8 @@ module.exports = Backbone.View.extend({
     },
     map: {},
     cam: new cctvModel,
-    initialize: function() {
-    },
+    apiUrl: 'http://localhost:1337/cctv',
+    initialize: function() {},
     render: function() {
 
         var template = _.template(this.template);
@@ -24,6 +24,7 @@ module.exports = Backbone.View.extend({
         $('body').html(this.el);
 
         this.initMap();
+        this.getCams();
 
         return this;
     },
@@ -47,15 +48,20 @@ module.exports = Backbone.View.extend({
     },
     showPosition: function(lat, long) {
         L.Icon.Default.imagePath = 'images';
-        var latlng = new L.LatLng(lat,long);
-        this.cam.set({location: [lat,long]});
+        var latlng = new L.LatLng(lat, long);
+        this.cam.set({
+            location: [lat, long]
+        });
         this.map.setView(latlng, 18);
         this.showCamForm();
         this.updatePosition(latlng);
-        var marker = new L.Marker(latlng, {draggable: true});
+        var marker = new L.Marker(latlng, {
+            draggable: true
+        });
         marker.on('drag', _.bind(function(e) {
             this.updatePosition(marker._latlng);
         }, this));
+
         marker.addTo(this.map);
     },
     showCamForm: function() {
@@ -63,13 +69,39 @@ module.exports = Backbone.View.extend({
         $('#addCamForm').show();
     },
     updatePosition: function(latlng) {
-        var lat = latlng.lat, 
-        lng = latlng.lng;
-        this.cam.set({location: [lat,lng]});
+        var lat = latlng.lat,
+            lng = latlng.lng;
+        this.cam.set({
+            location: [lat, lng]
+        });
         $('.position .lat').text(lat);
         $('.position .long').text(lng);
     },
     markCam: function() {
         this.cam.save();
+    },
+    getCams: function() {
+
+        console.log(this.map);
+
+        $.ajax({
+            url: this.apiUrl,
+            dataType: 'json'
+        }).done(function(data) {
+            this.addcams(data);
+        }.bind(this));
+    },
+    addcams: function(cctvs) {
+
+        cctvs.forEach(function(point, i) {
+            if (point.location[0] && point.location[1]) {
+                L.circle(point.location, 15, {
+                    fillColor: '#e74c3c',
+                    fillOpacity: 1,
+                    stroke: false
+                }).addTo(this.map);
+            }
+
+        }.bind(this));
     }
 });
