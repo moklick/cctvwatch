@@ -5,12 +5,18 @@ Map application that displays CCTV cameras and lets you upload new ones using th
 ## Installation 
 ``` 
 npm install
-bower install
-cd bower_components/leaflet/ && npm install
 ```
 
-## Run Application
-Start the [cctvwatch-api](https://github.com/moklick/cctvwatch-api) and start a local webserver in order to handle the ajax calls.
+## Build
+``` 
+gulp
+```
+
+## Run
+Start the [cctvwatch-api](https://github.com/moklick/cctvwatch-api) and then run 
+``` 
+npm start
+```
 
 ### Requirements
 *	node.js
