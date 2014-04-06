@@ -39,8 +39,13 @@
     "lodash": "global:lodash"
   },
   "dependencies": {
-    "backbone": "^1.1.2",
-    "jquery": "^2.1.0",
-    "leaflet": "^0.7.2"
+    "backbone": "~1.1.2",
+    "jquery": "~2.1.0",
+    "leaflet": "~0.7.2",
+    "httpster": "~0.6.0"
+  },
+  "scripts": {
+    "postinstall": "bower install && cd app/bower_components/leaflet-bower/ && npm install",
+    "start": "httpster -d dist"
   }
 }
