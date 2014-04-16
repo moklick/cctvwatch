@@ -65,7 +65,6 @@ module.exports = Backbone.View.extend({
         marker.addTo(this.map);
     },
     showCamForm: function() {
-        $('#map').css('height', '70%');
         $('#addCamForm').show();
     },
     updatePosition: function(latlng) {
@@ -78,12 +77,14 @@ module.exports = Backbone.View.extend({
         $('.position .long').text(lng);
     },
     markCam: function() {
+        this.cam.set({
+            type: $('.camtype [type=radio]:checked').val(),
+            direction: $('.direction [type=radio]:checked').val()
+        });
+        console.log(this.cam);
         this.cam.save();
     },
     getCams: function() {
-
-        console.log(this.map);
-
         $.ajax({
             url: this.apiUrl,
             dataType: 'json'
@@ -92,7 +93,6 @@ module.exports = Backbone.View.extend({
         }.bind(this));
     },
     addcams: function(cctvs) {
-
         cctvs.forEach(function(point, i) {
             if (point.location[0] && point.location[1]) {
                 L.circle(point.location, 15, {
