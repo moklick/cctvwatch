@@ -17,12 +17,17 @@
     "gulp-less": "~1.2.1",
     "gulp-size": "~0.1.3",
     "gulp-connect": "~0.3.1",
+    "proxy-middleware": "^0.5.0",
+    "connect-memorize": "^0.1.2",
+    "stringify": "^2.1.0",
     "browserify": "~3.29.0",
     "debowerify": "~0.5.2",
     "mocha": "~1.17.1",
     "should": "~3.1.2",
     "jshint-stylish": "~0.1.5",
-    "browserify-shim": "~3.2.2"
+    "browserify-shim": "~3.2.2",
+    "gulp-if": "^1.2.0",
+    "rsyncwrapper": "^0.3.0"
   },
   "engines": {
     "node": ">=0.10.0"
@@ -41,11 +46,23 @@
   "dependencies": {
     "backbone": "~1.1.2",
     "jquery": "~2.1.0",
-    "leaflet": "~0.7.2",
-    "httpster": "~0.6.0"
+    "leaflet": "~0.7.2"
   },
   "scripts": {
-    "postinstall": "bower install && cd app/bower_components/leaflet-bower/ && npm install",
-    "start": "httpster -d dist"
+    "postinstall": "bower install && cd app/bower_components/leaflet-bower/ && npm install"
+  },
+  "devConfig": {
+    "deployURI": "cctv@cctv.antares.uberspace.de:/home/cctv/html",
+    "proxy": {
+      "enabled": true,
+      "backendURL": "http://cctv.antares.uberspace.de/",
+      "routes": [
+        "cctv",
+        "login",
+        "logout",
+        "auth"
+      ],
+      "cacheDir": "cache"
+    }
   }
 }

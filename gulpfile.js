@@ -1,8 +1,10 @@
 'use strict';
 // Generated on 2014-03-21 using generator-browserify 0.2.2
 
-var gulp = require('gulp');
-var bower = 'app/bower_components';
+var path = require('path'),
+    gulp = require('gulp'),
+    bower = 'app/bower_components',
+    config = require(path.resolve(__dirname, 'package')).devConfig;
 
 // Load plugins
 var $ = require('gulp-load-plugins')();
@@ -14,7 +16,7 @@ gulp.task('styles', function () {
     // .pipe($.recess())  
     .pipe($.less({
         style: 'expanded',
-        loadPath: ['app/bower_components']
+        loadPath: [bower]
     }))
         .pipe($.autoprefixer('last 1 version'))
         .pipe($.csso())
@@ -25,11 +27,14 @@ gulp.task('styles', function () {
 
 // Scripts
 gulp.task('scripts', function () {
+    var stringify = require('stringify'),
+        condition = typeof gulp.tasks.release !== 'undefined' ? gulp.tasks.release.running : false;
     return gulp.src('app/scripts/main.js')
         .pipe($.browserify({
             debug: true,
             transform: [
-        'debowerify'
+        'debowerify',
+        stringify(['.html'])
       ],
             // Note: At this time it seems that you will also have to 
             // setup browserify-shims in package.json to correctly handle
@@ -37,7 +42,7 @@ gulp.task('scripts', function () {
             extensions: ['.js'],
             external: ['lodash','jquery']
         }))
-    // .pipe($.uglify())
+    .pipe($.if(condition, $.uglify()))
     .pipe(gulp.dest('dist/scripts'))
         .pipe($.size())
         .pipe($.connect.reload());
@@ -47,19 +52,20 @@ gulp.task('scripts', function () {
 gulp.task('html', function () {
     return gulp.src('app/*.html')
         .pipe(gulp.dest('dist'))
-        .pipe($.size());
+        .pipe($.size())
+        .pipe($.connect.reload());
 });
 
 // Lint
 gulp.task('lint', function () {
     return gulp.src('app/scripts/**/*.js')
         .pipe($.jshint('.jshintrc'))
-        .pipe($.jshint.reporter(require('jshint-stylish')))
+        .pipe($.jshint.reporter(require('jshint-stylish')));
 });
 
 // Images
 gulp.task('images', function () {
-    return gulp.src(['app/images/**/*', 'app/bower_components/leaflet-bower/dist/images/*'])
+    return gulp.src(['app/images/**/*', bower + '/leaflet-bower/dist/images/*'])
         .pipe($.cache($.imagemin({
             optimizationLevel: 3,
             progressive: true,
@@ -76,19 +82,6 @@ gulp.task('clean', function () {
     }).pipe($.clean());
 });
 
-// Build
-
-gulp.task('build', ['html', 'styles', 'scripts', 'images']);
-
-// Dev Server
-
-gulp.task('dev', ['html', 'styles', 'scripts', 'images', 'connect', 'watch']);
-
-// Default task
-gulp.task('default', ['clean'], function () {
-    gulp.start('dev');
-});
-
 // Connect
 gulp.task('connect', $.connect.server({
     root: __dirname + '/dist',
@@ -100,6 +93,28 @@ gulp.task('connect', $.connect.server({
         file: 'index.html',
         browser: 'Google Chrome'
     },
+    middleware: function connect(connect, o) {
+        if (config.proxy.enabled === true) {
+            var proxy = require('proxy-middleware'),
+                memorize = require('connect-memorize'),
+                url = require('url');
+            
+            var baseURL = config.proxy.backendURL,
+                middlewares = [];
+
+            config.proxy.routes.forEach(function(route) {
+                middlewares.push(memorize({
+                    match: '/' + route, // handle only urls starting with $expression
+                    memorize: true, // store stuff
+                    recall: true, // serve previously stored
+                    storageDir: config.proxy.cacheDir
+                }));
+                middlewares.push(connect().use('/' + route, proxy(url.parse(baseURL + route))));
+            });
+            
+            return middlewares;
+        }
+    }
 }));
 
 // Watch
@@ -108,7 +123,7 @@ gulp.task('watch', ['connect'], function () {
     gulp.watch([
         'app/less/**/*.less',
         'app/scripts/**/*.js',
-        'app/images/**/*'
+        'app/images/**/*',
     ], $.connect.reload);
 
 
@@ -125,3 +140,29 @@ gulp.task('watch', ['connect'], function () {
     // Watch .html files
     gulp.watch('app/**/*.html', ['html']);
 });
+
+gulp.task('deploy', function() {
+    var rsync = require('rsyncwrapper').rsync,
+        path = require('path');
+
+    return rsync({
+        src: path.resolve(__dirname, 'dist/*'),
+        dest: config.deployURI,
+        ssh: true,
+        recursive: true,
+    }, function(error, stdout, stderr, cmd) {
+        if (error) console.log(error.message);
+    });
+});
+
+// Build
+gulp.task('build', ['clean', 'html', 'styles', 'scripts', 'images']);
+
+// Dev Server
+gulp.task('dev', ['clean', 'build', 'connect', 'watch']);
+
+// Release task
+gulp.task('release', ['build']);
+
+// Default task
+gulp.task('default', ['dev']);
