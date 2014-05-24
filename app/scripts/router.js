@@ -1,12 +1,9 @@
-window.$ = require('jquery');
-var Backbone = require('backbone');
-Backbone.$ = window.$;
 CamMapView = require('./views/cammap.js');
 
 module.exports = Backbone.Router.extend({
     routes: {
-        'camMap': 'camMap',
-        'addCam': 'addCam'
+        '!/camMap': 'camMap',
+        '!/addCam': 'addCam'
     },
     camMap: function () {
         var mapView = new CamMapView();

@@ -1,0 +1,6 @@
+{
+	"map": {
+		"tilesURL": "http://{s}.tiles.mapbox.com/v3/moklick.hh7gbc50/{z}/{x}/{y}.png",
+		"label": "<a href='http://mapbox.com/about/maps' target='_blank'>Mapbox</a> |  Map data © <a href='http://www.openstreetmap.org'>OpenStreetMap contributors</a>"
+	}
+}

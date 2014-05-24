@@ -9,69 +9,25 @@
     <meta name="author" content="">
     <link rel="shortcut icon" href="../../docs-assets/ico/favicon.png">
 
-    <title>Theme Template for Bootstrap</title>
-
-    <!-- Bootstrap core CSS -->
-    <!-- <link href="../../dist/css/bootstrap.css" rel="stylesheet"> -->
-    <!-- Bootstrap theme -->
-    <!-- <link href="../../dist/css/bootstrap-theme.min.css" rel="stylesheet"> -->
+    <title>CCTV Watch</title>
 
     <!-- Custom styles for this template -->
     <!--[if lte IE 8]>
-    <link rel="stylesheet" href="node_modules/leaflet/dist/leaflet.ie.css" />
-  <![endif]-->
+        <link rel="stylesheet" href="node_modules/leaflet/dist/leaflet.ie.css" />
+    <![endif]-->
 
     <link href="/styles/app.css" rel="stylesheet">
-
-    <!-- Just for debugging purposes. Don't actually copy this line! -->
-    <!--[if lt IE 9]><script src="../../docs-assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
       <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
       <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
     <![endif]-->
-    <script type="text/template" id="mapViewTemplate">
-         		<header class="clearfix">
-        			<div class="logo">cctvwatch</div>
-        			<div id="addCam">add Cam</div>
-        		</header>
-        		<div class="app">
-        			<div id="map"></div>
-                    <div id="addCamForm">
-                        <h3>Cam Info:</h3>
-                        <div class="close-btn"></div>
-                        <div class="info">
-                        <div class="position">
-                            <p>lat: <span class="lat"></span></p>
-                            <p>lng: <span class="long"></span></p>
-                        </div>
-                        <h4>Camtype:</h4>
-                        <div class="camtype">
-                            
-                            <label>Public<input type="radio" name="camtype" value="public"></label>
-                            <label>Private<input type="radio" name="camtype" value="private"></label>
-                        </div>
-                        <h4>Direction:</h4>
-                        <div class="direction">
-                            
-                            <label>360deg<input type="radio" name="camdir" value="360"></label>
-                            <label>other<input type="radio" name="camdir" value="other"></label>
-                        </div>
-                        </div>
-                        <button id="markBtn" class="btn btn-default">Mark!</button>
-                    </div>
-        		</div>
-    </script>
+
 </head>
 
 
 <body>
-    <!--
-    Scripts
-    ================================================== 
-    Placed at the end of the document so the pages load faster -->
-    <!-- <script src="scripts/app.js"></script> -->
     <script src="scripts/main.js"></script>
 </body>
 

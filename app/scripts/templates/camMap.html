@@ -1,0 +1,32 @@
+<script type="text/template" id="mapViewTemplate">
+	<header class="clearfix">
+		<div class="logo">cctvwatch</div>
+		<div id="addCam">add Cam</div>
+	</header>
+	<div class="app">
+		<div id="map"></div>
+		<div id="addCamForm">
+			<h3>Cam Info:</h3>
+			<div class="close-btn"></div>
+			<div class="info">
+				<div class="position">
+					<p>lat: <span class="lat"></span></p>
+					<p>lng: <span class="long"></span></p>
+				</div>
+				<h4>Camtype:</h4>
+				<div class="camtype">
+
+					<label>Public<input type="radio" name="camtype" value="public"></label>
+					<label>Private<input type="radio" name="camtype" value="private"></label>
+				</div>
+				<h4>Direction:</h4>
+				<div class="direction">
+
+					<label>360deg<input type="radio" name="camdir" value="360"></label>
+					<label>other<input type="radio" name="camdir" value="other"></label>
+				</div>
+			</div>
+			<button id="markBtn" class="btn btn-default">Mark!</button>
+		</div>
+	</div>
+</script>

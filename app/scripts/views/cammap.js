@@ -1,13 +1,8 @@
-window.$ = require('jquery');
-window._ = require('lodash');
-window.L = require('leaflet');
-var Backbone = require('backbone');
-var cctvModel = require('../models/cctvModel.js');
-
-Backbone.$ = window.$;
+var cctvModel = require('../models/cctvModel.js'),
+    cctvTemplate = require('../templates/camMap.html');
 
 module.exports = Backbone.View.extend({
-    template: $('#mapViewTemplate').html(),
+    template: $(cctvTemplate).html(),
     className: 'global',
     events: {
         'click #addCam': 'addCamLink',
@@ -15,7 +10,7 @@ module.exports = Backbone.View.extend({
     },
     map: {},
     cam: new cctvModel,
-    apiUrl: 'http://localhost:1337/cctv',
+    apiUrl: '/cctv',
     initialize: function() {},
     render: function() {
 
@@ -34,8 +29,8 @@ module.exports = Backbone.View.extend({
             center: [52.520, 13.385],
             zoom: 11
         });
-        var tileLayer = new L.TileLayer('http://{s}.tiles.mapbox.com/v3/moklick.hh7gbc50/{z}/{x}/{y}.png', {
-            attribution: '<a href="http://mapbox.com/about/maps" target="_blank">Mapbox</a> |  Map data © <a href="http://www.openstreetmap.org">OpenStreetMap contributors</a>'
+        var tileLayer = new L.TileLayer(config.map.tilesURL, {
+            attribution: config.map.label
         }).addTo(this.map);
     },
 
