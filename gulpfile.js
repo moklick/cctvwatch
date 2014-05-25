@@ -162,7 +162,9 @@ gulp.task('build', ['clean', 'html', 'styles', 'scripts', 'images']);
 gulp.task('dev', ['clean', 'build', 'connect', 'watch']);
 
 // Release task
-gulp.task('release', ['build']);
+gulp.task('release', function() {
+    gulp.start('build');
+});
 
 // Default task
 gulp.task('default', ['dev']);
