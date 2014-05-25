@@ -1,5 +1,5 @@
 module.exports = Backbone.Model.extend({
-	urlRoot: '/cctv',
+    url: '/cctv',
     defaults: {
         location : [],
         type: 'no type defined',

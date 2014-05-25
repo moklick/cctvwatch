@@ -1,5 +1,6 @@
-var cctvModel = require('../models/cctvModel.js'),
-    cctvTemplate = require('../templates/camMap.html');
+var cctvCollection = require('../collections/cctvCollection.js'),
+    cctvModel = require('../models/cctvModel.js')
+    cctvTemplate = require('../templates/cctvMap.html');
 
 module.exports = Backbone.View.extend({
     template: $(cctvTemplate).html(),
@@ -9,8 +10,8 @@ module.exports = Backbone.View.extend({
         'click #markBtn': 'markCam'
     },
     map: {},
-    cam: new cctvModel,
-    apiUrl: '/cctv',
+    collection: new cctvCollection(),
+    cam: new cctvModel(),
     initialize: function() {},
     render: function() {
 
@@ -19,15 +20,16 @@ module.exports = Backbone.View.extend({
         $('body').html(this.el);
 
         this.initMap();
-        this.getCams();
+        this.collection.fetch();
+        this.addCams();
 
         return this;
     },
 
     initMap: function() {
         this.map = new L.Map('map', {
-            center: [52.520, 13.385],
-            zoom: 11
+            center: config.map.center,
+            zoom: config.map.zoom
         });
         var tileLayer = new L.TileLayer(config.map.tilesURL, {
             attribution: config.map.label
@@ -42,7 +44,7 @@ module.exports = Backbone.View.extend({
         });
     },
     showPosition: function(lat, long) {
-        L.Icon.Default.imagePath = 'images';
+        L.Icon.Default.imagePath = config.imagePath;
         var latlng = new L.LatLng(lat, long);
         this.cam.set({
             location: [lat, long]
@@ -63,6 +65,7 @@ module.exports = Backbone.View.extend({
         $('#addCamForm').show();
     },
     updatePosition: function(latlng) {
+        // TODO: Use templating instead of jQuery manipulations
         var lat = latlng.lat,
             lng = latlng.lng;
         this.cam.set({
@@ -77,26 +80,21 @@ module.exports = Backbone.View.extend({
             direction: $('.direction [type=radio]:checked').val()
         });
         console.log(this.cam);
-        this.cam.save();
+
+        this.collection.create(this.cam);
     },
-    getCams: function() {
-        $.ajax({
-            url: this.apiUrl,
-            dataType: 'json'
-        }).done(function(data) {
-            this.addcams(data);
-        }.bind(this));
-    },
-    addcams: function(cctvs) {
-        cctvs.forEach(function(point, i) {
-            if (point.location[0] && point.location[1]) {
-                L.circle(point.location, 15, {
+    addCams: function() {
+        this.collection.bind('add', _.bind(function(model) {
+
+            var point = model.get('location');
+            if (point[0] && point[1]) {
+                L.circle(point, 15, {
                     fillColor: '#e74c3c',
                     fillOpacity: 1,
                     stroke: false
                 }).addTo(this.map);
             }
 
-        }.bind(this));
+        }, this));
     }
 });
