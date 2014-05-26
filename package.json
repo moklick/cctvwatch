@@ -46,7 +46,7 @@
   "dependencies": {
     "backbone": "~1.1.2",
     "jquery": "~2.1.0",
-    "leaflet": "~0.7.2"
+    "leaflet": "^0.7.3"
   },
   "scripts": {
     "postinstall": "bower install && cd app/bower_components/leaflet-bower/ && npm install"

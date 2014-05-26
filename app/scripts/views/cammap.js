@@ -1,23 +1,18 @@
 var cctvCollection = require('../collections/cctvCollection.js'),
-    cctvModel = require('../models/cctvModel.js')
-    cctvTemplate = require('../templates/cctvMap.html');
+    cctvModel = require('../models/cctvModel.js'),
+    cctvTemplate = require('../templates/map.html');
 
 module.exports = Backbone.View.extend({
-    template: $(cctvTemplate).html(),
-    className: 'global',
-    events: {
-        'click #addCam': 'addCamLink',
-        'click #markBtn': 'markCam'
-    },
+    template: _.template($(cctvTemplate).html()),
     map: {},
     collection: new cctvCollection(),
     cam: new cctvModel(),
-    initialize: function() {},
+    initialize: function() {
+        this.render();
+    },
     render: function() {
 
-        var template = _.template(this.template);
-        this.$el.html(template());
-        $('body').html(this.el);
+        this.$el.html(this.template());
 
         this.initMap();
         this.collection.fetch();
@@ -36,53 +31,6 @@ module.exports = Backbone.View.extend({
         }).addTo(this.map);
     },
 
-    addCamLink: function() {
-        var self = this;
-        navigator.geolocation.getCurrentPosition(function(location) {
-            // TODO: show error if location cannot be detected
-            self.showPosition(location.coords.latitude, location.coords.longitude);
-        });
-    },
-    showPosition: function(lat, long) {
-        L.Icon.Default.imagePath = config.imagePath;
-        var latlng = new L.LatLng(lat, long);
-        this.cam.set({
-            location: [lat, long]
-        });
-        this.map.setView(latlng, 18);
-        this.showCamForm();
-        this.updatePosition(latlng);
-        var marker = new L.Marker(latlng, {
-            draggable: true
-        });
-        marker.on('drag', _.bind(function(e) {
-            this.updatePosition(marker._latlng);
-        }, this));
-
-        marker.addTo(this.map);
-    },
-    showCamForm: function() {
-        $('#addCamForm').show();
-    },
-    updatePosition: function(latlng) {
-        // TODO: Use templating instead of jQuery manipulations
-        var lat = latlng.lat,
-            lng = latlng.lng;
-        this.cam.set({
-            location: [lat, lng]
-        });
-        $('.position .lat').text(lat);
-        $('.position .long').text(lng);
-    },
-    markCam: function() {
-        this.cam.set({
-            type: $('.camtype [type=radio]:checked').val(),
-            direction: $('.direction [type=radio]:checked').val()
-        });
-        console.log(this.cam);
-
-        this.collection.create(this.cam);
-    },
     addCams: function() {
         this.collection.bind('add', _.bind(function(model) {
 
