@@ -24,7 +24,8 @@ module.exports = Backbone.View.extend({
     initMap: function() {
         this.map = new L.Map('map', {
             center: config.map.center,
-            zoom: config.map.zoom
+            zoom: config.map.zoom,
+            zoomControl : false
         });
         var tileLayer = new L.TileLayer(config.map.tilesURL, {
             attribution: config.map.label

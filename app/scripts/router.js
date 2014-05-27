@@ -7,8 +7,18 @@ module.exports = Backbone.Router.extend({
         '!/addCam': 'addCam'
     },
     initialize:function(){
-      this.headerView = new HeaderView({el:$('#header')});
-      this.mapView = new CamMapView({el:$('#map')});
+
+      var vent = _.extend({}, Backbone.Events) ;
+
+      this.headerView = new HeaderView({
+        el:$('#header')
+      });
+
+      this.mapView = new CamMapView({
+        el:$('#map'),
+        vent : vent
+      });
+      
     },
     camMap: function () {
         var mapView = new CamMapView();
