@@ -1,7 +1,7 @@
 var loginTemplate = require('../templates/login.html');
 
 module.export = Backbone.View.extend({
-    template: _.template($(loginTemplate).html()),
+    template: _.template(loginTemplate),
     initialize:function(){
         this.render();
     },
