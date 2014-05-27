@@ -3,7 +3,7 @@ var cctvCollection = require('../collections/cctvCollection.js'),
     cctvTemplate = require('../templates/map.html');
 
 module.exports = Backbone.View.extend({
-    template: _.template($(cctvTemplate).html()),
+    template: _.template(cctvTemplate),
     map: {},
     collection: new cctvCollection(),
     cam: new cctvModel(),
