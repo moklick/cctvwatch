@@ -11,14 +11,14 @@ module.exports = Backbone.Router.extend({
       var vent = _.extend({}, Backbone.Events) ;
 
       this.headerView = new HeaderView({
-        el:$('#header')
+        el:$('header')
       });
 
       this.mapView = new CamMapView({
         el:$('#map'),
         vent : vent
       });
-      
+
     },
     camMap: function () {
         var mapView = new CamMapView();
