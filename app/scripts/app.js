@@ -23,7 +23,7 @@ App.prototype.start = function () {
     });
 
 
-}
+};
 
 App.prototype.beep = function () {
     console.log('boop');
