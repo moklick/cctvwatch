@@ -38,7 +38,7 @@
     ]
   },
   "browser": {
-    "lodash": "./app/bower_components/lodash/dist/lodash.js"
+    "lodash": "./app/bower_components/lodash/dist/lodash.js"  
   },
   "browserify-shim": {
     "lodash": "global:lodash"

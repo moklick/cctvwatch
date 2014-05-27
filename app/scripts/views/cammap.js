@@ -30,6 +30,9 @@ module.exports = Backbone.View.extend({
         var tileLayer = new L.TileLayer(config.map.tilesURL, {
             attribution: config.map.label
         }).addTo(this.map);
+
+        new OSMBuildings(this.map).loadData();
+
     },
 
     addCams: function() {

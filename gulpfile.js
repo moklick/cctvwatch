@@ -42,6 +42,7 @@ gulp.task('scripts', function () {
             extensions: ['.js'],
             external: ['lodash','jquery']
         }))
+
     .pipe($.if(condition, $.uglify()))
     .pipe(gulp.dest('dist/scripts'))
         .pipe($.size())
@@ -155,8 +156,18 @@ gulp.task('deploy', function() {
     });
 });
 
+// TODO: Fix this!!1 Include libs
+gulp.task('libs', function () {
+    return gulp.src('app/scripts/lib/*.js')
+        .pipe($.concat('libs.js'))
+        .pipe(gulp.dest('dist/scripts/lib'))
+        .pipe($.size())
+        .pipe($.connect.reload());
+});
+
+
 // Build
-gulp.task('build', ['clean', 'html', 'styles', 'scripts', 'images']);
+gulp.task('build', ['clean', 'html', 'styles', 'scripts', 'images', 'libs']);
 
 // Dev Server
 gulp.task('dev', ['clean', 'build', 'connect', 'watch']);
