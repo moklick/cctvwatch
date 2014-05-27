@@ -5,19 +5,36 @@ header {
     padding: 10px;
     color: #fdfdfd;
     font-size: 1.5em;
-    background: #f0f0f0;
+    background:@headerBg;
     z-index:9;
     border-bottom:1px solid #eee;
     h1{
-        float:left;
+        padding-left:3em;
         display:inline-block;
         font-size:1em;
         line-height:1.24em;
         color:#222;
-        margin-left:.7em;
     }
-    #menuButton {
-        float:left;
+    .menuButton {
+        position: absolute;
+        top: 0;
+        background: @menuBtnBg;
+        border: none;
+        border-radius: 1px;
+        padding: .15em 1em;
+        font-size: 1em;
+        height: 100%;
+        left: 0;
+        text-align: center;
+        cursor:pointer;
+        transition:background .2s;
+    }
+    .menuButton:hover{
+        background: @menuBtnHover;
+    }
+    .menuButton:active, .menuButton:focus{
+        border:none;
+        outline:none;
     }
     .menuItem {
     }
