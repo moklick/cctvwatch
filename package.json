@@ -38,7 +38,7 @@
     ]
   },
   "browser": {
-    "lodash": "./app/bower_components/lodash/dist/lodash.js"  
+    "lodash": "./app/bower_components/lodash/dist/lodash.js"
   },
   "browserify-shim": {
     "lodash": "global:lodash"
@@ -49,7 +49,7 @@
     "leaflet": "^0.7.3"
   },
   "scripts": {
-        "postinstall": "bower install && cd app/bower_components/leaflet-bower/ && npm install"
+    "postinstall": "bower install && cd app/bower_components/leaflet-bower/ && npm install"
   },
   "devConfig": {
     "deployURI": "cctv@cctv.antares.uberspace.de:/home/cctv/html",
