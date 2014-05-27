@@ -11,7 +11,7 @@ npm install
 
 ## Build
 - Dev:
-Gulp will also create a **proxy** in order to proxify all backend/API resources locally. 
+Gulp will also create a **proxy** in order to proxify all backend/API ressources locally. 
 Responses will be cached under ```/cache```, edit them and have fun programming **backend-free**.
 ``` 
 gulp
