@@ -20,7 +20,7 @@ module.exports = Backbone.View.extend({
     },
     goto: function(evt){
         var link = $(evt.target).attr('data-link');
-        this.vent.trigger('goto:' + link);
+        this.vent.trigger('goto', link);
 
         console.log('goto:' + link);
     }

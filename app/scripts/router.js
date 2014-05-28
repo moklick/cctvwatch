@@ -1,35 +1,35 @@
-var CamMapView = require('./views/cammap.js'),
-    HeaderView = require('./views/header.js');
+var MapView = require('./views/map.js'),
+    HeaderView = require('./views/header.js'),
+    LoginView = require('./views/login.js');
 
 module.exports = Backbone.Router.extend({
     routes: {
         '!/camMap': 'camMap',
         '!/addCam': 'addCam'
     },
-    initialize:function(){
+    initialize: function () {
 
-      var vent = _.extend({}, Backbone.Events) ;
+        this.vent = _.extend({}, Backbone.Events);
 
-      this.headerView = new HeaderView({
-        el:$('header'),
-        vent : vent
-      });
+        new HeaderView({
+            el: $('header'),
+            vent: this.vent
+        });
+        new MapView({
+            el: $('#map'),
+            vent: this.vent
+        });
 
-      this.mapView = new CamMapView({
-        el:$('#map'),
-        vent : vent
-      });
-
+        this.vent.on('goto', function (data) {
+            this.navigate(data, {trigger: true});
+        });
     },
-    camMap: function () {
-        var mapView = new CamMapView();
-        mapView.render();
-    },
+
     addCam: function () {
         console.log('addCam');
     },
-    changePage: function (view) {
-  //      view.render();
- //       $('body').html(this.headerView.el).append(view.el);
+    login: function () {
+        new LoginView({el: $('#details'), vent: this.vent});
+
     }
 });

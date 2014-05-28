@@ -10,7 +10,7 @@ module.exports = Backbone.View.extend({
     initialize: function(options) {
         this.render();
         _.bindAll(this, 'toggleOverlay');  
-        options.vent.bind('toggle:overlay', this.toggleOverlay);
+        options.vent.on('toggle:overlay', this.toggleOverlay);
     },
     render: function() {
 
