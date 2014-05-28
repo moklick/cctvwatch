@@ -53,11 +53,22 @@ header {
         padding:1em 0;
         user-select:none;
     }
-    .menu-items li:hover{
+    .menu-item:hover{
         background: @menuBtnBg;
     }
-    .menu-items .fa{
+    .menu-item .fa,.menu-close .fa{
         margin-right:.5em;
         color:#555;
+    }
+    .menu-close .fa{
+        color: @closeBtnCol;
+    }
+    .menu-items .menu-close{
+        background: @closeBtnBg;
+        color: @closeBtnCol;
+        border-bottom:1px solid #999;
+    }
+    .menu-close:hover{
+        background: lighten(@closeBtnBg,5%);
     }
 }

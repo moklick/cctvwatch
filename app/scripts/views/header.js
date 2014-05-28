@@ -3,7 +3,7 @@ var headerTemplate = require('../templates/header.html');
 module.exports = Backbone.View.extend({
     template: _.template(headerTemplate),
     events: {
-        'click .menu-button': 'menuButton',
+        'click .menu-toggle': 'menuButton',
         'click .menu-item': 'goto'
     },
     initialize: function (options) {
