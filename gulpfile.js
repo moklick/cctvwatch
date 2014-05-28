@@ -140,6 +140,7 @@ gulp.task('watch', ['connect'], function () {
 
     // Watch .html files
     gulp.watch('app/**/*.html', ['html']);
+
 });
 
 gulp.task('deploy', function() {
@@ -165,9 +166,13 @@ gulp.task('libs', function () {
         .pipe($.connect.reload());
 });
 
+gulp.task('fonts', function() {
+  return gulp.src(['app/bower_components/font-awesome/fonts/fontawesome-webfont.*'])
+    .pipe(gulp.dest('dist/fonts/'));
+});
 
 // Build
-gulp.task('build', ['clean', 'html', 'styles', 'scripts', 'images', 'libs']);
+gulp.task('build', ['clean', 'html', 'styles', 'scripts', 'images', 'libs', 'fonts']);
 
 // Dev Server
 gulp.task('dev', ['clean', 'build', 'connect', 'watch']);

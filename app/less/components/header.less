@@ -1,19 +1,74 @@
 header {
     position: absolute;
     width: 100%;
-    height: 50px;
-    padding: 10px;
-    color: #fdfdfd;
+    height: 2em;
     font-size: 1.5em;
-    background: #f0f0f0;
+    background:@headerBg;
     z-index:9;
-    border-bottom:1px solid #eee;
-    .logo {
-        line-height:1.1em;
-        display: inline-block;
+    border-bottom:1px solid #e0e0e0;
+    h1{
+        padding-left:3.5em;
+        display:inline-block;
+        font-size:1em;
+        line-height:1.95em;
     }
-    #menuButton {
+    .menu-button {
+        position: absolute;
+        top: 0;
+        background: @menuBtnBg;
+        border: none;
+        border-radius: 1px;
+        padding: .15em 1em;
+        font-size: 1em;
+        height: 100%;
+        left: 0;
+        text-align: center;
+        cursor:pointer;
+        transition:background .2s;
+        user-select:none;
     }
-    .menuItem {
+    .menu-button:hover{
+        background: @menuBtnHover;
+    }
+    .menu-button:active, .menu-button:focus{
+        border:none;
+        outline:none;
+    }
+    .menu-items{
+        display:none;
+        background:@menuBg;
+        width:100%;
+        position: absolute;
+        top:2em;
+        z-index:9;
+    }
+    .menu-items.active{
+        display:block;
+    }
+    .menu-items li{
+        font-size:.8em;
+        text-align:center;
+        cursor: pointer;
+        border-bottom:1px solid #eee;
+        padding:1em 0;
+        user-select:none;
+    }
+    .menu-item:hover{
+        background: @menuBtnBg;
+    }
+    .menu-item .fa,.menu-close .fa{
+        margin-right:.5em;
+        color:#555;
+    }
+    .menu-close .fa{
+        color: @closeBtnCol;
+    }
+    .menu-items .menu-close{
+        background: @closeBtnBg;
+        color: @closeBtnCol;
+        border-bottom:1px solid #999;
+    }
+    .menu-close:hover{
+        background: lighten(@closeBtnBg,5%);
     }
 }

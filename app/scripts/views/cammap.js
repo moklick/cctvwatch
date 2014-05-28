@@ -7,8 +7,10 @@ module.exports = Backbone.View.extend({
     map: {},
     collection: new cctvCollection(),
     cam: new cctvModel(),
-    initialize: function() {
+    initialize: function(options) {
         this.render();
+        _.bindAll(this, 'toggleOverlay');  
+        options.vent.bind('toggle:overlay', this.toggleOverlay);
     },
     render: function() {
 
@@ -48,5 +50,9 @@ module.exports = Backbone.View.extend({
             }
 
         }, this));
+    },
+
+    toggleOverlay: function(){
+        $('.map-overlay').toggleClass('active');
     }
 });

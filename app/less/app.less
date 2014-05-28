@@ -6,7 +6,11 @@
 
 /* Vendor Styles and Setting (bootstrao > variables)
    ======================================================================== */
+
+/* TODO: Fix this crappy import */   
+@import (less) "../bower_components/font-awesome/css/font-awesome.min.css";
 @import "leaflet.less";
+@import "variables.less";
 @import "components/base.less";
 @import "components/header.less";
 @import "components/map.less";
@@ -37,18 +41,9 @@ body,html,.global{
 }
 body{
 	font-family: 'Source Sans Pro', sans-serif;
+	color:#222;
 }
-.app{
-	padding-top:60px;
-	height:100%;
-}
-#map{
-	height:100%;
-}
-#addCam{
-	float:right;
-	cursor: pointer;
-}
+
 #addCamForm {
 	background: #001F3F;
 	width: 80%;

@@ -11,7 +11,8 @@ module.exports = Backbone.Router.extend({
       var vent = _.extend({}, Backbone.Events) ;
 
       this.headerView = new HeaderView({
-        el:$('header')
+        el:$('header'),
+        vent : vent
       });
 
       this.mapView = new CamMapView({
