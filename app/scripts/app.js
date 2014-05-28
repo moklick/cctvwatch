@@ -19,7 +19,7 @@ App.prototype.start = function () {
     var Router = require('./router.js');
 
     var router = new Router();
-    router.navigate('!/camMap', {
+    router.navigate('camMap', {
         trigger: true
     });
 
