@@ -1,6 +1,6 @@
 var addcamTemplate = require('../templates/addcam1.html');
 
-module.export = Backbone.View.extend({
+module.exports = Backbone.View.extend({
     template: _.template(addcamTemplate),
     events: {
         'click #ready': 'clickReady'
@@ -8,7 +8,7 @@ module.export = Backbone.View.extend({
     },
     clickReady: function () {
 
-
+        console.log('ready');
     },
     initialize: function () {
         this.render();
