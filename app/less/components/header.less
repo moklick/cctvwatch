@@ -12,28 +12,6 @@ header {
         font-size:1em;
         line-height:1.95em;
     }
-    .menu-button {
-        position: absolute;
-        top: 0;
-        background: @menuBtnBg;
-        border: none;
-        border-radius: 1px;
-        padding: .15em 1em;
-        font-size: 1em;
-        height: 100%;
-        left: 0;
-        text-align: center;
-        cursor:pointer;
-        transition:background .2s;
-        user-select:none;
-    }
-    .menu-button:hover{
-        background: @menuBtnHover;
-    }
-    .menu-button:active, .menu-button:focus{
-        border:none;
-        outline:none;
-    }
     .menu-items{
         display:none;
         background:@menuBg;
@@ -45,7 +23,7 @@ header {
     .menu-items.active{
         display:block;
     }
-    .menu-items li{
+    .menu-item{
         font-size:.8em;
         text-align:center;
         cursor: pointer;
@@ -72,3 +50,25 @@ header {
         background: lighten(@closeBtnBg,5%);
     }
 }
+    .menu-button {
+        position: absolute;
+        top: 0;
+        background: @menuBtnBg;
+        border: none;
+        border-radius: 1px;
+        padding: .15em 1em;
+        font-size: 1em;
+        height: 100%;
+        left: 0;
+        text-align: center;
+        cursor:pointer;
+        transition:background .2s;
+        user-select:none;
+    }
+    .menu-button:hover{
+        background: @menuBtnHover;
+    }
+    .menu-button:active, .menu-button:focus{
+        border:none;
+        outline:none;
+    }
