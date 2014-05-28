@@ -4,8 +4,10 @@ var MapView = require('./views/map.js'),
 
 module.exports = Backbone.Router.extend({
     routes: {
-        '!/camMap': 'camMap',
-        '!/addCam': 'addCam'
+        '': 'home',
+        '!/home': 'home',
+        '!/addCam': 'addCam',
+        '!/login': 'login'
     },
     initialize: function () {
 
@@ -21,15 +23,21 @@ module.exports = Backbone.Router.extend({
         });
 
         this.vent.on('goto', function (data) {
-            this.navigate(data, {trigger: true});
-        });
+            console.log(data);
+            this.navigate('!/' + data, {trigger: true});
+        }.bind(this));
+    },
+    home: function () {
     },
 
     addCam: function () {
         console.log('addCam');
     },
     login: function () {
-        new LoginView({el: $('#details'), vent: this.vent});
+        new LoginView({
+            el: $('#details')//,
+        //    vent: this.vent
+        });
 
     }
 });

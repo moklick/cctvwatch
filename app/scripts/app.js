@@ -18,8 +18,8 @@ App.prototype.start = function () {
     Backbone.history.start();
     var Router = require('./router.js');
 
-    this.router = new Router();
-    router.navigate('camMap', {
+    var router = new Router();
+    router.navigate('', {
         trigger: true
     });
 };
