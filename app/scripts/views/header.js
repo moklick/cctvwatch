@@ -12,7 +12,7 @@ module.exports = Backbone.View.extend({
         this.render();
     },
     menuButton: function () {
-        $('.menu-items').toggleClass('active');
+        this.toggleMenu();
         this.vent.trigger('toggle:overlay');
     },
     render: function () {
@@ -21,7 +21,9 @@ module.exports = Backbone.View.extend({
     goto: function(evt){
         var link = $(evt.target).attr('data-link');
         this.vent.trigger('goto', link);
-
-        console.log('goto:' + link);
+        this.toggleMenu();
+    },
+    toggleMenu : function(){
+        $('.menu-items').toggleClass('active');
     }
 });
