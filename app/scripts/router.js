@@ -35,8 +35,8 @@ module.exports = Backbone.Router.extend({
     },
     login: function () {
         new LoginView({
-            el: $('#details')//,
-        //    vent: this.vent
+            el: $('#details'),
+            vent: this.vent
         });
 
     }

@@ -6,9 +6,8 @@ module.exports = Backbone.View.extend({
         this.render();
     },
     render:function(){
-        console.log('login render');
         this.$el.html(this.template());
+
         return this;
     }
-
 });
