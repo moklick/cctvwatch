@@ -14,23 +14,21 @@ module.exports = Backbone.View.extend({
     },
     loginLink: function(){
         router.navigate('!/login')
-
     },
     aboutLink: function(){
         router.navigate('!/about')
-
     },
-    initialize: function () {
+    initialize: function (options) {
+        this.vent = options.vent;
         this.render();
         this.menuDropDown = this.$el.find('#menuDropDown');
     },
     menuButton: function () {
         /**
          * TODO: show or hide the menu
-         */
-
+         */ 
         $('.menuItems').toggleClass('active');
-
+        this.vent.trigger('toggle:overlay');
     },
     render: function () {
         this.$el.html(this.template());
