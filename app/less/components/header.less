@@ -1,19 +1,16 @@
 header {
     position: absolute;
     width: 100%;
-    height: 50px;
-    padding: 10px;
-    color: #fdfdfd;
+    height: 2em;
     font-size: 1.5em;
     background:@headerBg;
     z-index:9;
-    border-bottom:1px solid #eee;
+    border-bottom:1px solid #e0e0e0;
     h1{
-        padding-left:3em;
+        padding-left:3.5em;
         display:inline-block;
         font-size:1em;
-        line-height:1.24em;
-        color:#222;
+        line-height:1.95em;
     }
     .menuButton {
         position: absolute;
@@ -36,6 +33,29 @@ header {
         border:none;
         outline:none;
     }
-    .menuItem {
+    .menuItems{
+        display:none;
+        background:@menuBg;
+        width:100%;
+        position: absolute;
+        top:2em;
+        z-index:9;
+    }
+    .menuItems.active{
+        display:block;
+    }
+    .menuItems li{
+        font-size:.8em;
+        text-align:center;
+        cursor: pointer;
+        border-bottom:1px solid #eee;
+        padding:1em 0;
+    }
+    .menuItems li:hover{
+        background: @menuBtnBg;
+    }
+    .menuItems .fa{
+        margin-right:.5em;
+        color:#555;
     }
 }

@@ -4,9 +4,9 @@ module.exports = Backbone.View.extend({
     template: _.template(headerTemplate),
     events: {
         'click .menuButton': 'menuButton',
-        'click #menuItem1': 'addCamLink',
-        'click #menuItem2': 'loginLink',
-        'click #menuItem3': 'aboutLink'
+        'click .menuItem1': 'addCamLink',
+        'click .menuItem2': 'loginLink',
+        'click .menuItem3': 'aboutLink'
 
     },
     addCamLink: function(){
@@ -28,8 +28,8 @@ module.exports = Backbone.View.extend({
         /**
          * TODO: show or hide the menu
          */
-         
-        console.log('menu');
+
+        $('.menuItems').toggleClass('active');
 
     },
     render: function () {
