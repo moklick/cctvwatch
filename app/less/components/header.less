@@ -12,7 +12,7 @@ header {
         font-size:1em;
         line-height:1.95em;
     }
-    .menuButton {
+    .menu-button {
         position: absolute;
         top: 0;
         background: @menuBtnBg;
@@ -25,15 +25,16 @@ header {
         text-align: center;
         cursor:pointer;
         transition:background .2s;
+        user-select:none;
     }
-    .menuButton:hover{
+    .menu-button:hover{
         background: @menuBtnHover;
     }
-    .menuButton:active, .menuButton:focus{
+    .menu-button:active, .menu-button:focus{
         border:none;
         outline:none;
     }
-    .menuItems{
+    .menu-items{
         display:none;
         background:@menuBg;
         width:100%;
@@ -41,20 +42,21 @@ header {
         top:2em;
         z-index:9;
     }
-    .menuItems.active{
+    .menu-items.active{
         display:block;
     }
-    .menuItems li{
+    .menu-items li{
         font-size:.8em;
         text-align:center;
         cursor: pointer;
         border-bottom:1px solid #eee;
         padding:1em 0;
+        user-select:none;
     }
-    .menuItems li:hover{
+    .menu-items li:hover{
         background: @menuBtnBg;
     }
-    .menuItems .fa{
+    .menu-items .fa{
         margin-right:.5em;
         color:#555;
     }

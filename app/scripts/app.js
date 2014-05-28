@@ -22,8 +22,6 @@ App.prototype.start = function () {
     router.navigate('!/camMap', {
         trigger: true
     });
-
-
 };
 
 App.prototype.beep = function () {
