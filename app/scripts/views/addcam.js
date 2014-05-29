@@ -7,11 +7,12 @@ module.exports = Backbone.View.extend({
 
     },
     clickReady: function () {
-
-        console.log('ready');
+        this.vent.trigger('retrieveMapPosition');
     },
-    initialize: function () {
+    initialize: function (options) {
         this.render();
+        this.vent = options.vent;
+        this.vent.on('giveMapPosition',function(data){});
     },
     render: function () {
         this.$el.html(this.template());
