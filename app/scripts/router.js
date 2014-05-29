@@ -29,7 +29,7 @@ module.exports = Backbone.Router.extend({
     },
 
     home: function () {
-
+        $('#details').html('');
     },
 
     addcam: function () {

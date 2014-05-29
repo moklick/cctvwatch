@@ -8,9 +8,15 @@ module.exports = Backbone.View.extend({
     collection: new cctvCollection(),
     cam: new cctvModel(),
     initialize: function(options) {
+        this.vent = options.vent;
         this.render();
-        _.bindAll(this, 'toggleOverlay');  
-        options.vent.on('toggle:overlay', this.toggleOverlay);
+        _.bindAll(this, 'toggleOverlay', 'hideOverlay', 'showOverlay');
+        this.vent.on('toggle:overlay', this.toggleOverlay);
+        this.vent.on('hide:overlay', this.hideOverlay);
+        this.vent.on('show:overlay', this.showOverlay);
+        this.vent.on('retrieveMapPosition', this.retrieveMapPosition)
+
+
     },
     render: function() {
 
@@ -21,6 +27,15 @@ module.exports = Backbone.View.extend({
         this.addCams();
 
         return this;
+    },
+
+    retrieveMapPosition:function(){
+        // schick die aktuelle center position in die pipe! weeeeeeeeoooooooo!
+
+
+        //this.vent.trigger('')
+
+
     },
 
     initMap: function() {
@@ -51,7 +66,12 @@ module.exports = Backbone.View.extend({
 
         }, this));
     },
-
+    hideOverlay: function(){
+        $('.map-overlay').removeClass('active');
+    },
+    showOverlay: function(){
+        $('.map-overlay').addClass('active');
+    },
     toggleOverlay: function(){
         $('.map-overlay').toggleClass('active');
     }

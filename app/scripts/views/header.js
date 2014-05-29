@@ -13,17 +13,24 @@ module.exports = Backbone.View.extend({
     },
     menuButton: function () {
         this.toggleMenu();
-        this.vent.trigger('toggle:overlay');
+//        this.vent.trigger('toggle:overlay');
     },
     render: function () {
         this.$el.html(this.template());
     },
-    goto: function(evt){
+    goto: function (evt) {
         var link = $(evt.target).attr('data-link');
         this.vent.trigger('goto', link);
         this.toggleMenu();
     },
-    toggleMenu : function(){
+    toggleMenu: function () {
         $('.menu-items').toggleClass('active');
+        if ($('.menu-items').hasClass('active')) {
+            this.vent.trigger('show:overlay');
+
+        } else {
+            this.vent.trigger('hide:overlay');
+
+        }
     }
 });
