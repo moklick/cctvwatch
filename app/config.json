@@ -1,8 +1,8 @@
 {
 	"map": {
 		"tilesURL": "http://{s}.tiles.mapbox.com/v3/moklick.hh7gbc50/{z}/{x}/{y}.png",
-		"center": [52.520, 13.385],
-		"zoom": 11,
+		"center": [52.514811,13.389194],
+		"zoom": 15,
 		"label": "<a href='http://mapbox.com/about/maps' target='_blank'>Mapbox</a> |  Map data © <a href='http://www.openstreetmap.org'>OpenStreetMap contributors</a>"
 	},
 	"imagePath": "images"

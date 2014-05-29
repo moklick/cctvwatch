@@ -71,7 +71,7 @@ gulp.task('images', function () {
             optimizationLevel: 3,
             progressive: true,
             interlaced: true
-        })))
+        }))) 
         .pipe(gulp.dest('dist/images'))
         .pipe($.size());
 });
