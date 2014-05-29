@@ -8,8 +8,10 @@ module.exports = Backbone.View.extend({
     },
     initialize: function (options) {
         this.vent = options.vent;
+        this.$menuItems = $('.menu-items');
         _.bindAll(this, 'goto');
         this.render();
+
     },
     menuButton: function () {
         this.toggleMenu();
@@ -24,13 +26,9 @@ module.exports = Backbone.View.extend({
         this.toggleMenu();
     },
     toggleMenu: function () {
+        console.log(this.$menuItems.size());
+
         $('.menu-items').toggleClass('active');
-        if ($('.menu-items').hasClass('active')) {
-            this.vent.trigger('show:overlay');
-
-        } else {
-            this.vent.trigger('hide:overlay');
-
-        }
+        $('.menu-items').hasClass('active') ? this.vent.trigger('show:overlay') : this.vent.trigger('hide:overlay');
     }
 });

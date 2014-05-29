@@ -17,7 +17,7 @@ module.exports = Backbone.Router.extend({
     initialize: function () {
         this.vent = _.extend({}, Backbone.Events);
         new HeaderView({
-            el: $('header'),
+            el: $('.header'),
             vent: this.vent
         });
         new MapView({

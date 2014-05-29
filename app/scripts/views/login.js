@@ -10,10 +10,11 @@ module.exports = Backbone.View.extend({
         this.render();
     },
     closeLogin: function(){
-    	this.$el.empty();
+    	this.$el.css({bottom : '-1000px'});
     },
     render:function(){
         this.$el.html(this.template());
+        this.$el.css({bottom : 0});
 
         return this;
     }

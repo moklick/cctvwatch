@@ -4,7 +4,7 @@ header {
     height: 2em;
     font-size: 1.5em;
     background:@headerBg;
-    z-index:9;
+    z-index:10;
     border-bottom:1px solid #e0e0e0;
     h1{
         padding-left:3.5em;
@@ -12,6 +12,8 @@ header {
         font-size:1em;
         line-height:1.95em;
     }
+}
+.header{
     .menu-button {
         position: absolute;
         top: 0;
@@ -35,19 +37,19 @@ header {
         outline:none;
     }
     .menu-items{
-        display:none;
         background:@menuBg;
         width:100%;
         position: absolute;
-        top:2em;
+        top:-1000px;
         z-index:9;
+        transition:top .4s;
     }
     .menu-items.active{
-        display:block;
+        top: 3em;
     }
 }
     .menu-item{
-        font-size:.8em;
+        font-size:1.2em;
         text-align:center;
         cursor: pointer;
         padding:1em 0;
