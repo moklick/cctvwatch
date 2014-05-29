@@ -47,7 +47,7 @@ module.exports = Backbone.View.extend({
             attribution: config.map.label
         }).addTo(this.map);
 
-        new OSMBuildings(this.map).loadData();
+        // new OSMBuildings(this.map).loadData();
 
     },
 
@@ -57,9 +57,10 @@ module.exports = Backbone.View.extend({
             var point = model.get('location');
             if (point[0] && point[1]) {
                 L.circle(point, 15, {
-                    fillColor: '#e74c3c',
-                    fillOpacity: 1,
-                    stroke: false
+                    fill: true,
+                    stroke: false,
+                    fillColor: 'rgb(231,76,60)',
+                    fillOpacity: .5
                 }).addTo(this.map);
             }
 
