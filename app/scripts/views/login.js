@@ -2,7 +2,7 @@ var loginTemplate = require('../templates/login.html');
 
 module.exports = Backbone.View.extend({
 	events: {
-        'click .menu-cancel': 'closeLogin'   
+        'click .menu-close': 'closeLogin'   
     },
     template: _.template(loginTemplate),
     initialize:function(options){
@@ -10,7 +10,7 @@ module.exports = Backbone.View.extend({
         this.render();
     },
     closeLogin: function(){
-    	$('#details').hide();
+    	this.$el.empty();
     },
     render:function(){
         this.$el.html(this.template());

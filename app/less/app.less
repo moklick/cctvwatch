@@ -15,6 +15,7 @@
 @import "components/header.less";
 @import "components/map.less";
 @import "components/login.less";
+@import "components/about.less";
 @import "components/details.less";
 
 /* Mixins (User defined mixins)
@@ -36,12 +37,45 @@
   display: table;
   clear: both;
 }
+a{
+	color: #222;
+	text-decoration:none;
+}
 body,html,.global{
 	height:100%;
 }
 body{
 	font-family: 'Source Sans Pro', sans-serif;
+	line-height: 1.5;
 	color:#222;
+}
+
+.btn{
+	background:lighten(#bdc3c7,14%);
+	border:none;
+	padding:.5em 1em;
+	text-align: center;
+	font-size:1.3em;
+	cursor:pointer;
+	border-radius:1px;
+}
+
+.btn:hover{
+	background:@btnHoverBg;
+}
+
+.btn .fa{
+	margin-right:.2em;
+}
+
+.close-btn{
+	cursor:pointer;
+	background:@closeBtnBg;
+	color:@closeBtnCol;
+}
+
+.close-btn:hover{
+	background:lighten(@closeBtnBg,5%);
 }
 
 #addCamForm {
@@ -53,8 +87,6 @@ body{
 	color: #FFF;
 	position: absolute;
 	padding: 3%;
-}
-#addCamForm div {
 }
 #addCamForm .close-btn {
 	position: absolute;

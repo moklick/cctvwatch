@@ -1,6 +1,7 @@
 var MapView = require('./views/map.js'),
     HeaderView = require('./views/header.js'),
     LoginView = require('./views/login.js'),
+    AboutView = require('./views/about.js'),
     AddCamView = require('./views/addcam.js');
 
 module.exports = Backbone.Router.extend({
@@ -9,7 +10,8 @@ module.exports = Backbone.Router.extend({
         '': 'home',
         '!/home': 'home',
         '!/addcam': 'addcam',
-        '!/login': 'login'
+        '!/login': 'login',
+        '!/about': 'about'
     },
 
     initialize: function () {
@@ -23,7 +25,6 @@ module.exports = Backbone.Router.extend({
             vent: this.vent
         });
         this.vent.on('goto', function (data) {
-            console.log(data);
             this.navigate('!/' + data, {trigger: true});
         }.bind(this));
     },
@@ -41,6 +42,13 @@ module.exports = Backbone.Router.extend({
 
     login: function () {
         new LoginView({
+            el: $('#details'),
+            vent: this.vent
+        });
+    },
+
+    about: function () {
+        new AboutView({
             el: $('#details'),
             vent: this.vent
         });
