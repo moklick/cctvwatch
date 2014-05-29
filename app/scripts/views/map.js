@@ -9,8 +9,11 @@ module.exports = Backbone.View.extend({
     cam: new cctvModel(),
     initialize: function(options) {
         this.render();
-        _.bindAll(this, 'toggleOverlay');  
-        options.vent.on('toggle:overlay', this.toggleOverlay);
+        _.bindAll(this, 'toggleOverlay', 'hideOverlay', 'showOverlay');  
+        options.vent.bind('toggle:overlay', this.toggleOverlay);
+        options.vent.bind('hide:overlay', this.hideOverlay);
+        options.vent.bind('show:overlay', this.showOverlay);
+
     },
     render: function() {
 
@@ -51,7 +54,12 @@ module.exports = Backbone.View.extend({
 
         }, this));
     },
-
+    hideOverlay: function(){
+        $('.map-overlay').removeClass('active');
+    },
+    showOverlay: function(){
+        $('.map-overlay').hideClass('active');
+    },
     toggleOverlay: function(){
         $('.map-overlay').toggleClass('active');
     }

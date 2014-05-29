@@ -12,44 +12,6 @@ header {
         font-size:1em;
         line-height:1.95em;
     }
-    .menu-items{
-        display:none;
-        background:@menuBg;
-        width:100%;
-        position: absolute;
-        top:2em;
-        z-index:9;
-    }
-    .menu-items.active{
-        display:block;
-    }
-    .menu-item{
-        font-size:.8em;
-        text-align:center;
-        cursor: pointer;
-        border-bottom:1px solid #eee;
-        padding:1em 0;
-        user-select:none;
-    }
-    .menu-item:hover{
-        background: @menuBtnBg;
-    }
-    .menu-item .fa,.menu-close .fa{
-        margin-right:.5em;
-        color:#555;
-    }
-    .menu-close .fa{
-        color: @closeBtnCol;
-    }
-    .menu-items .menu-close{
-        background: @closeBtnBg;
-        color: @closeBtnCol;
-        border-bottom:1px solid #999;
-    }
-    .menu-close:hover{
-        background: lighten(@closeBtnBg,5%);
-    }
-}
     .menu-button {
         position: absolute;
         top: 0;
@@ -71,4 +33,47 @@ header {
     .menu-button:active, .menu-button:focus{
         border:none;
         outline:none;
+    }
+    .menu-items{
+        display:none;
+        background:@menuBg;
+        width:100%;
+        position: absolute;
+        top:2em;
+        z-index:9;
+    }
+    .menu-items.active{
+        display:block;
+    }
+}
+    .menu-item{
+        font-size:.8em;
+        text-align:center;
+        cursor: pointer;
+        border-bottom:1px solid #eee;
+        padding:1em 0;
+        user-select:none;
+        background:@menuBg;
+        border:none;
+        display:block;
+        margin:0 auto;
+        width:100%;
+    }
+    .menu-item:hover{
+        background: @menuBtnBg;
+    }
+    .menu-item .fa,.menu-close .fa{
+        margin-right:.5em;
+        color:#555;
+    }
+    .menu-close .fa{
+        color: @closeBtnCol;
+    }
+    .menu-close{
+        background: @closeBtnBg;
+        color: @closeBtnCol;
+        border-bottom:1px solid #999;
+    }
+    .menu-close:hover{
+        background: lighten(@closeBtnBg,5%);
     }
