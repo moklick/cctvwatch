@@ -23,7 +23,7 @@ module.exports = Backbone.View.extend({
 
         this.initMap();
         this.collection.fetch();
-        this.addCams();
+        this.drawCams();
 
         return this;
     },
@@ -51,7 +51,7 @@ module.exports = Backbone.View.extend({
 
     },
 
-    addCams: function() {
+    drawCams: function() {
         this.collection.bind('add', _.bind(function(model) {
 
             var point = model.get('location');

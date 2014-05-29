@@ -1,22 +1,13 @@
 var aboutTemplate = require('../templates/about.html');
+var BaseView = require('./base.js');
 
-module.exports = Backbone.View.extend({
+module.exports = BaseView.extend({
 	events: {
-        'click .close-btn': 'close'   
+        'click .close-btn': 'closeDetails'   
     },
     template: _.template(aboutTemplate),
     initialize:function(options){
     	this.vent = options.vent;
-        this.render();
-    },
-    close: function(){
-        this.$el.css({bottom : '-1000px'});
-    	//this.$el.empty();
-    },
-    render:function(){
-        this.$el.html(this.template());
-        this.$el.css({bottom : 0});
-
-        return this;
+        this.renderDetails();
     }
 });

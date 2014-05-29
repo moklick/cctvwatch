@@ -10,18 +10,16 @@ module.exports = Backbone.View.extend({
         this.vent = options.vent;
         _.bindAll(this, 'goto');
         this.render();
-
     },
     menuButton: function () {
         this.toggleMenu();
-//        this.vent.trigger('toggle:overlay');
     },
     render: function () {
         this.$el.html(this.template());
     },
     goto: function (evt) {
         var link = $(evt.target).attr('data-link');
-        this.vent.trigger('goto', link);
+        this.vent.trigger('goto', '!/' + link);
         this.toggleMenu();
     },
     toggleMenu: function () {

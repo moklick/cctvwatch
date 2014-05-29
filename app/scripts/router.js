@@ -25,12 +25,12 @@ module.exports = Backbone.Router.extend({
             vent: this.vent
         });
         this.vent.on('goto', function (data) {
-            this.navigate('!/' + data, {trigger: true});
+            this.navigate(data, {trigger: true});
         }.bind(this));
     },
 
     home: function () {
-        $('#details').html('');
+        $('#details').empty();
     },
 
     addcam: function () {
