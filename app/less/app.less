@@ -25,6 +25,18 @@
 /* Components
    ======================================================================== */
 @import "components/base.less";
+::selection {
+	background:@selectionBg;
+	color:@selectionCol;
+}
+::-moz-selection {
+	background: #1abc9c;
+	color:white;
+}
+::-webkit-selection {
+	background: #1abc9c;
+	color:white;
+}
 *, *:before, *:after {
   -moz-box-sizing: border-box; 
   -webkit-box-sizing: border-box; 
