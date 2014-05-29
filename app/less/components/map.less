@@ -9,12 +9,14 @@
 	height:100%;
 	background:@overlayBg;
 	z-index:8;
-	display:none;
 	top:0;
 	left:0;
 	width:100%;
+	pointer-events:none;
+	opacity:0;
+	transition:opacity .2s;
 }
 .map-overlay.active{
-	user-select:none;
-	display:block;
+	pointer-events:all;
+	opacity:1;
 }
