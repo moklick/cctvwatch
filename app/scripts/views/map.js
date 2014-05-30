@@ -46,6 +46,12 @@ module.exports = Backbone.View.extend({
 
     createMarker: function(params) {
 
+        // handle marker without geolocated user
+        if(params.latlng === -1){
+            params.latlng = this.map.getCenter();
+            this.vent.trigger('addcam:updateMarker', {latlng : params.latlng})
+        }
+
         this.map.setView(params.latlng, config.map.detailZoom);
 
         this.addCamMarker = new L.Marker(params.latlng, {

@@ -42,7 +42,7 @@ module.exports = BaseView.extend({
 
         camera.save();
 
-        this.trigger('map:setView', { latlng : this.markerPosition, zoom : config.map.initZoom })
+        this.vent.trigger('map:setView', { latlng : this.markerPosition, zoom : config.map.initZoom })
         this.showSuccessMsg();
         this.markerPosition = [];
         this.closeDetails();
@@ -61,13 +61,16 @@ module.exports = BaseView.extend({
         });
     },
     handleGeoError: function(){
-        // TODO: handle geolocation error
-        console.error('Geolocation error.');  
+        // if the user does allow geolocation
+        this.vent.trigger('map:createMarker', {
+            latlng: -1
+        }); 
     },
     addCamLink: function() {
         navigator.geolocation.getCurrentPosition(this.showMarker, this.handleGeoError, this.geoOptions);
     },
     cancelAddCam: function(evt) {
+        this.vent.trigger('map:setView', { latlng : this.markerPosition, zoom : config.map.initZoom })
         evt.preventDefault();
         this.markerPosition = [];
         this.closeDetails();
