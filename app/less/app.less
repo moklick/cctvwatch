@@ -17,6 +17,8 @@
 @import "components/login.less";
 @import "components/about.less";
 @import "components/details.less";
+@import "components/addcam.less";
+
 
 /* Mixins (User defined mixins)
    ======================================================================== */
@@ -62,7 +64,6 @@ body{
 	color:#222;
 	overflow: hidden;
 }
-
 .btn{
 	background:lighten(#bdc3c7,14%);
 	border:none;
@@ -72,65 +73,25 @@ body{
 	cursor:pointer;
 	border-radius:1px;
 }
-
 .btn:hover{
 	background:@btnHoverBg;
 }
 
 .btn .fa{
-	margin-right:.2em;
+	width:1.25em;
 }
-
 .close-btn{
 	cursor:pointer;
 	background:@closeBtnBg;
 	color:@closeBtnCol;
 }
-
 .close-btn:hover{
 	background:lighten(@closeBtnBg,5%);
 }
-
-#addCamForm {
-	background: #001F3F;
-	width: 80%;
-	top: 80px;
-	left: 10%;
-	display: none;
-	color: #FFF;
-	position: absolute;
-	padding: 3%;
+.done-btn{
+	background:@doneBtnBg;
+	color:@doneBtnCol;
 }
-#addCamForm .close-btn {
-	position: absolute;
-	top: 10px;
-	right: 10px;
-	height: 30px;
-	width: 30px;
-	cursor: pointer;
-	background-color: #fff;
-}
-#addCamForm .info {
-	margin-bottom: 30px;
-}
-#addCamForm .info div {
-	width: 100%;
-	padding: 5px;
-	background-color: #FFF;
-	color: #000;
-}
-#addCamForm input[type="radio"], #addCamForm label {
-	margin: 0 10px 0;
-}
-#markBtn {
-	display: block;
-	width: 100%;
-	border: none;
-	border-radius: 0;
-	text-transform: uppercase;
-	position: relative;
-	background-color: #7FDBFF;
-}
-#markBtn:hover {
-	background-color: #FFF;
+.done-btn:hover{
+	background:lighten(@doneBtnBg,5%);
 }

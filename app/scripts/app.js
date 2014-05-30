@@ -8,9 +8,7 @@ window.config = require('../config');
 
 'use strict';
 
-function App() {
-    console.log('app initialized');
-}
+function App() {}
 
 module.exports = App;
 

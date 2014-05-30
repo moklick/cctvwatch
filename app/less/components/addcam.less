@@ -1,0 +1,55 @@
+.step{
+	display:none;
+	padding:1em;
+	.btn{
+		width:49.5%;
+		display:block;
+		float:right;
+	}
+	.done-btn{
+		float:left;
+	}
+	.btn-wrapper{
+		margin-top:1em;
+	}
+	form > *{
+		display:block;
+	}
+	form label, form input{
+		font-size:.9em;
+		font-family: 'Source Sans Pro', sans-serif;
+	}
+	.radio-wrapper{
+		font-size:.9em;
+		margin:.25em 0;
+	}
+	form textarea{
+		height:10em;
+		border:1px solid #d7d7d7;
+		resize:none;
+		border-radius: 2px;
+		width:100%;
+		padding:.5em;
+		margin:.25em 0 1em 0;
+		font-family: 'Source Sans Pro', sans-serif;
+		font-size:.9em;
+	}
+	form textarea:focus{
+		outline:none;
+
+	}
+}
+.step.active{
+	display:block;
+}
+.success-msg{
+	background:@doneBtnBg;
+	color:@doneBtnCol;
+	padding:1em;
+	z-index:9999;
+	bottom:0;
+	width:100%;
+	margin:0 auto;
+	position: absolute;
+	display:none;
+}

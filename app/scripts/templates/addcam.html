@@ -1,2 +1,37 @@
-<p>drag the crosshair to locate the cam</p>
-        <button id="ready">ready</button>
+<div class="step step-one active">
+    <div class="headline">
+        <p><i class="fa fa-info-circle"></i> 
+            <strong>Drag the marker to locate the camera.</strong>
+        </p>
+    </div>
+    <div class="group btn-wrapper">
+        <button class="btn done-btn next-step"><i class="fa fa-check"></i>Done</button>
+        <button class="btn close-btn"><i class="fa fa-times"></i>Cancel</button>
+    </div>
+</div>
+<div class="step step-two">
+    <div class="headline">
+        <p>
+            <strong><i class="fa fa-plus-circle"></i> Add some details (optional).</strong>
+        </p>
+    </div>
+
+    <form action="#">
+        <label for="type">
+            <strong>Type</strong>
+        </label>
+        <div class="radio-wrapper">
+            <input checked="checked" type="radio" name="type-standard" value="Standard"> Standard</div>
+        <div class="radio-wrapper">
+            <input type="radio" name="type-360" value="360"> 360°</div>
+        <label for="comment">
+            <strong>Comment</strong>
+        </label>
+        <textarea class="comment" name="comment"></textarea>
+        <div class="group">
+            <button type="submit" class="btn done-btn save-camera"><i class="fa fa-check"></i>Save</button>
+            <button class="btn close-btn"><i class="fa fa-times"></i>Cancel</a>
+            </button>
+        </div>
+    </form>
+</div>
