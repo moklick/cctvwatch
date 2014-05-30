@@ -39,7 +39,7 @@ module.exports = BaseView.extend({
                 type: type,
                 comment : comment
             });
-
+    
         camera.save();
 
         this.vent.trigger('map:setView', { latlng : this.markerPosition, zoom : config.map.initZoom })
@@ -70,8 +70,9 @@ module.exports = BaseView.extend({
         navigator.geolocation.getCurrentPosition(this.showMarker, this.handleGeoError, this.geoOptions);
     },
     cancelAddCam: function(evt) {
-        this.vent.trigger('map:setView', { latlng : this.markerPosition, zoom : config.map.initZoom })
         evt.preventDefault();
+
+        this.vent.trigger('map:setView', { latlng : this.markerPosition, zoom : config.map.initZoom })
         this.markerPosition = [];
         this.closeDetails();
     },
