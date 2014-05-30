@@ -66,7 +66,7 @@ module.exports = Backbone.View.extend({
 
     },
     removeMarker: function(){
-        if(typeof this.addCamMarker !== 'undefined'){
+        if(typeof this.addCamMarker._latlng !== 'undefined'){
             this.map.removeLayer(this.addCamMarker);
         }
     },
