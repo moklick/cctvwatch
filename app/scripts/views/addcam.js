@@ -17,7 +17,7 @@ module.exports = BaseView.extend({
     },
     initialize: function(options) {
         this.vent = options.vent;
-        _.bindAll(this, 'saveCamera', 'showMarker', 'handleGeoError','updateMarker');
+        _.bindAll(this, 'saveCamera', 'showMarker','cancelAddCam', 'handleGeoError','updateMarker','nextStep');
         // this.vent.on('addcam:updateMarker', this.updateMarker);
         this.listenTo(this.vent, 'addcam:updateMarker', this.updateMarker);
         this.addCamLink();
@@ -28,7 +28,10 @@ module.exports = BaseView.extend({
 
         $('.step-one').fadeOut(function() {
             $('.step-two').fadeIn();
-        });
+            this.markerPosition[0] -= 0.0005;
+            this.vent.trigger('map:setView', { latlng : this.markerPosition, zoom : config.map.detailZoom })
+
+        }.bind(this));
     },
     saveCamera: function(evt) {
         evt.preventDefault();
@@ -57,7 +60,7 @@ module.exports = BaseView.extend({
         $(document).on('submit', '.step form', this.saveCamera);
     },
     showMarker: function(location) {
-        var latlng = [location.coords.latitude, location.coords.longitude];
+        var latlng = [location.coords.latitude - 0.0005, location.coords.longitude];
         this.markerPosition = latlng;
         this.vent.trigger('map:createMarker', {
             latlng: latlng
@@ -74,7 +77,6 @@ module.exports = BaseView.extend({
     },
     cancelAddCam: function(evt) {
         evt.preventDefault();
-
         this.vent.trigger('map:setView', { latlng : this.markerPosition, zoom : config.map.initZoom })
         this.markerPosition = [];
         this.closeDetails();

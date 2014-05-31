@@ -1,13 +1,11 @@
 var cctvCollection = require('../collections/cctvCollection.js'),
     cctvModel = require('../models/cctvModel.js'),
-    cctvTemplate = require('../templates/map.html'),
-    caminfoTemplate = require('../templates/caminfo.html');
+    cctvTemplate = require('../templates/map.html');
 
 L.Icon.Default.imagePath = 'images';
 
 module.exports = Backbone.View.extend({
     template: _.template(cctvTemplate),
-    caminfoTmpl: _.template(caminfoTemplate),
     collection: new cctvCollection(),
     cam: new cctvModel(),
     map: {},
@@ -102,13 +100,10 @@ module.exports = Backbone.View.extend({
             });
                 
             circle.on('click', function(){
-                var html = '';
-                _.forEach(model.attributes, function(el,i){
-                    html += i +':' + el + '<br />';
-                });
-                $('#details').empty();
-                $('#details').html(this.caminfoTmpl({data : html}));
-                $('#details').css({bottom: 0});
+                latlng[0] -= 0.005;
+                this.map.setView(latlng, this.map.getZoom());
+
+                this.vent.trigger('route:caminfo', '!/info/' + model.get('id'))
             }.bind(this));
 
             circle.addTo(this.map);

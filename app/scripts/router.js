@@ -3,10 +3,12 @@ var MapView = require('./views/map.js'),
     LoginView = require('./views/login.js'),
     AboutView = require('./views/about.js'),
     AddCamView = require('./views/addcam.js'),
-    targets = {
+    CamInfoView = require('./views/caminfo.js'),
+    views = {
         login : LoginView,
         about : AboutView,
-        addcam : AddCamView
+        addcam : AddCamView,
+        caminfo: CamInfoView
     };
 
 module.exports = Backbone.Router.extend({
@@ -14,32 +16,47 @@ module.exports = Backbone.Router.extend({
     routes: {
         '': 'home',
         '!/home': 'home',
-        '!/:target': 'goto'
+        '!/:target': 'goto',
+        '!/info/:id' : 'showInfo' 
     },
     initialize: function () {
         this.vent = _.extend({}, Backbone.Events);
-        
+        _.bindAll(this, 'showInfo');
         new HeaderView({
             el: $('.header'),
             vent: this.vent
         });
 
-        new MapView({
+        this.mapView = new MapView({
             el: $('#map'),
             vent: this.vent
         });
 
-        this.vent.on('goto', function (data) {
-            this.navigate(data, {trigger: true});
+        this.vent.on('goto', function (link) {
+            this.navigate(link, {trigger: true});
+        }.bind(this));
+
+        this.vent.on('route:caminfo', function (link) {
+            this.navigate(link, {trigger: true});
         }.bind(this));
     },
     home: function () {
         $('#details').empty();
     },
     goto: function(target){
-        new targets[target]({
+        new views[target]({
             el: $('#details'),
             vent: this.vent
+        });
+    },
+    showInfo: function(camId){
+
+        var camModel = this.mapView.collection.where({id : camId});
+
+        new views['caminfo']({
+            el: $('#details'),
+            vent: this.vent,
+            camModel : camModel
         });
     }
 });
