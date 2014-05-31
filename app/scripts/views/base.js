@@ -1,16 +1,21 @@
 var BaseView = Backbone.View.extend({
   constructor: function() {
-  	this.markerLatlng = [];
+    _.bindAll(this, 'closeDetails', 'render');
+    this.$details = $('#details');
     Backbone.View.apply(this, arguments);
   },
   closeDetails: function(){
-  	this.$el.css({bottom : '-1000px'});
+
+  	this.$details.css({ bottom : '-1000px'});
     this.vent.trigger('goto', '');
     this.vent.trigger('map:removeMarker');
+
+    this.stopListening();
   },
-  renderDetails: function(){
+  render: function(){
+    this.$details.empty();
   	this.$el.html(this.template());
-    this.$el.css({bottom : 0});
+    this.$details.css({bottom : 0});
 
     return this;
   }

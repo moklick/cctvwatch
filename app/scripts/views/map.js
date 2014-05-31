@@ -12,7 +12,7 @@ module.exports = Backbone.View.extend({
     addCamMarker: {},
     initialize: function(options) {
         this.vent = options.vent;
-        _.bindAll(this, 'toggleOverlay', 'hideOverlay', 'showOverlay', 'setView', 'createMarker','removeMarker');
+        _.bindAll(this, 'drawCam','toggleOverlay', 'hideOverlay', 'showOverlay', 'setView', 'createMarker', 'removeMarker');
 
         this.vent.on('toggle:overlay', this.toggleOverlay);
         this.vent.on('hide:overlay', this.hideOverlay);
@@ -22,6 +22,8 @@ module.exports = Backbone.View.extend({
         this.vent.on('map:createMarker', this.createMarker);
         this.vent.on('map:removeMarker', this.removeMarker);
 
+        this.collection.on('add', this.drawCam);
+
         this.render();
     },
     render: function() {
@@ -30,14 +32,8 @@ module.exports = Backbone.View.extend({
 
         this.initMap();
         this.collection.fetch();
-        this.drawCams();
 
         return this;
-    },
-
-    retrieveMapPosition: function() {
-        // schick die aktuelle center position in die pipe! weeeeeeeeoooooooo!
-        //this.vent.trigger('')
     },
 
     setView: function(params) {
@@ -47,9 +43,11 @@ module.exports = Backbone.View.extend({
     createMarker: function(params) {
 
         // handle marker without geolocated user
-        if(params.latlng === -1){
+        if (params.latlng === -1) {
             params.latlng = this.map.getCenter();
-            this.vent.trigger('addcam:updateMarker', {latlng : params.latlng})
+            this.vent.trigger('addcam:updateMarker', {
+                latlng: params.latlng
+            })
         }
 
         this.map.setView(params.latlng, config.map.detailZoom);
@@ -59,14 +57,16 @@ module.exports = Backbone.View.extend({
         });
 
         this.addCamMarker.on('drag', _.bind(function(e) {
-            this.vent.trigger('addcam:updateMarker', {latlng : this.addCamMarker._latlng})
+            this.vent.trigger('addcam:updateMarker', {
+                latlng: this.addCamMarker._latlng
+            })
         }, this));
 
         this.addCamMarker.addTo(this.map);
 
     },
-    removeMarker: function(){
-        if(typeof this.addCamMarker._latlng !== 'undefined'){
+    removeMarker: function() {
+        if (typeof this.addCamMarker._latlng !== 'undefined') {
             this.map.removeLayer(this.addCamMarker);
         }
     },
@@ -83,19 +83,16 @@ module.exports = Backbone.View.extend({
         // new OSMBuildings(this.map).loadData();
     },
 
-    drawCams: function() {
-        this.collection.bind('add', _.bind(function(model) {
-
-            var latlng = model.get('location');
-            if (latlng[0] && latlng[1]) {
-                L.circle(latlng, 15, {
-                    fill: true,
-                    stroke: false,
-                    fillColor: 'rgb(231,76,60)',
-                    fillOpacity: .5
-                }).addTo(this.map);
-            }
-        }, this));
+    drawCam: function(model) {
+        var latlng = model.get('location');
+        if (latlng[0] && latlng[1]) {
+            L.circle(latlng, 15, {
+                fill: true,
+                stroke: false,
+                fillColor: 'rgb(231,76,60)',
+                fillOpacity: .5
+            }).addTo(this.map);
+        }
     },
     hideOverlay: function() {
         $('.map-overlay').removeClass('active');
