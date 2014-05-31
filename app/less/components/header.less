@@ -1,88 +1,122 @@
 header {
+  position: absolute;
+  width: 100%;
+  height: 2em;
+  font-size: 1.5em;
+  background: @headerBg;
+  z-index: 10;
+  border-bottom: 1px solid #e0e0e0;
+  h1 {
+    padding-left: 3.5em;
+    display: inline-block;
+    font-size: 1em;
+    line-height: 1.95em;
+  }
+  .logo {
     position: absolute;
+    right: 0;
+    top: .2em;
+    width: 45px;
+    opacity: .85;
+  }
+}
+
+.header {
+  .menu-button {
+    position: absolute;
+    top: 0;
+    background: @menuBtnBg;
+    border: none;
+    border-radius: 1px;
+    padding: .15em 1em;
+    font-size: 1em;
+    height: 100%;
+    left: 0;
+    text-align: center;
+    cursor: pointer;
+    transition: background .2s;
+    user-select: none;
+  }
+  .menu-button:hover {
+    background: @menuBtnHover;
+  }
+  .menu-button:active, .menu-button:focus {
+    border: none;
+    outline: none;
+  }
+  .menu-items {
+    background: @menuBg;
     width: 100%;
-    height: 2em;
-    font-size: 1.5em;
-    background:@headerBg;
-    z-index:10;
-    border-bottom:1px solid #e0e0e0;
-    h1{
-        padding-left:3.5em;
-        display:inline-block;
-        font-size:1em;
-        line-height:1.95em;
-    }
-    .logo{
-        position: absolute;
-        right: 0;
-        top:.2em;
-        width:45px;
-        opacity:.85;
-    }
+    position: absolute;
+    top: -1000px;
+    z-index: 9;
+    transition: top .2s;
+  }
+  .menu-items.active {
+    top: 3em;
+  }
 }
-.header{
-    .menu-button {
-        position: absolute;
-        top: 0;
-        background: @menuBtnBg;
-        border: none;
-        border-radius: 1px;
-        padding: .15em 1em;
-        font-size: 1em;
-        height: 100%;
-        left: 0;
-        text-align: center;
-        cursor:pointer;
-        transition:background .2s;
-        user-select:none;
-    }
-    .menu-button:hover{
-        background: @menuBtnHover;
-    }
-    .menu-button:active, .menu-button:focus{
-        border:none;
-        outline:none;
-    }
-    .menu-items{
-        background:@menuBg;
-        width:100%;
-        position: absolute;
-        top:-1000px;
-        z-index:9;
-        transition:top .2s;
-    }
-    .menu-items.active{
-        top: 3em;
-    }
+
+.menu-item {
+  font-size: 1.2em;
+  cursor: pointer;
+  text-align: left;
+  padding: 1em 1.25em;
+  user-select: none;
+  background: @menuBg;
+  border: none;
+  border-bottom: 1px solid #e7e7e7;
+  display: block;
+  margin: 0 auto;
+  width: 100%;
 }
-    .menu-item{
-        font-size:1.2em;
-        cursor: pointer;
-        text-align:left;
-        padding:1em 1.25em;
-        user-select:none;
-        background:@menuBg;
-        border:none;
-        border-bottom:1px solid #e7e7e7;
-        display:block;
-        margin:0 auto;
-        width:100%;
-    }
-    .menu-item:hover{
-        background: @menuBtnBg;
-    }
-    .menu-item .fa,.menu-close .fa{
-        color:#555;
-        width:1.25em;
-    }
-    .menu-close .fa{
-        color: @closeBtnCol;
-    }
-    .menu-close{
-        background: @closeBtnBg;
-        color: @closeBtnCol;
-        border-bottom:1px solid #999;
-    }
-    .menu-close:hover{
-        background: lighten(@closeBtnBg,5%);
-    }
+
+.menu-item:hover {
+  background: @menuBtnBg;
+}
+
+.menu-item .fa, .menu-close .fa {
+  color: #555;
+  width: 1.25em;
+}
+
+.menu-close .fa {
+  color: @closeBtnCol;
+}
+
+.menu-close {
+  background: @closeBtnBg;
+  color: @closeBtnCol;
+  border-bottom: 1px solid #999;
+}
+
+.menu-close:hover {
+  background: lighten(@closeBtnBg, 5%);
+}
+
+#cctvLogo {
+  position: absolute;
+  right: 0;
+  height: 1.5em;
+  width: 2em;
+  path {
+    fill: #222;
+
+  }
+}
+
+#cctvLogoArm {
+  transform-origin: 70% 100%;
+  animation: cctvLogoAnim 5s infinite ease-in-out alternate;
+}
+
+@keyframes cctvLogoAnim {
+  0% {
+    transform: rotate(5deg)
+  }
+  100% {
+    transform: rotate(-30deg)
+  }
+
+}
+
