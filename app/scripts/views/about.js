@@ -8,6 +8,6 @@ module.exports = BaseView.extend({
     template: _.template(aboutTemplate),
     initialize:function(options){
     	this.vent = options.vent;
-        this.renderDetails();
+    	this.render();
     }
 });

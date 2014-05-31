@@ -10,7 +10,8 @@ module.exports = BaseView.extend({
     initialize:function(options){
     	this.vent = options.vent;
     	_.bindAll(this, 'authRedirect');
-        this.renderDetails();
+
+        this.render();
     },
     authRedirect: function(evt){
     	var provider = $(evt.target).attr('data-provider');

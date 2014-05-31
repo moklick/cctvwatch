@@ -18,12 +18,14 @@ module.exports = BaseView.extend({
     initialize: function(options) {
         this.vent = options.vent;
         _.bindAll(this, 'saveCamera', 'showMarker', 'handleGeoError','updateMarker');
-        this.vent.on('addcam:updateMarker', this.updateMarker);
+        // this.vent.on('addcam:updateMarker', this.updateMarker);
+        this.listenTo(this.vent, 'addcam:updateMarker', this.updateMarker);
         this.addCamLink();
         this.bindEvents();
-        this.renderDetails();
+        this.render();
     },
     nextStep: function() {
+
         $('.step-one').fadeOut(function() {
             $('.step-two').fadeIn();
         });
@@ -43,6 +45,7 @@ module.exports = BaseView.extend({
         camera.save();
 
         this.vent.trigger('map:setView', { latlng : this.markerPosition, zoom : config.map.initZoom })
+        
         this.showSuccessMsg();
         this.markerPosition = [];
         this.closeDetails();
