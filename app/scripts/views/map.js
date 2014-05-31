@@ -1,18 +1,20 @@
 var cctvCollection = require('../collections/cctvCollection.js'),
     cctvModel = require('../models/cctvModel.js'),
-    cctvTemplate = require('../templates/map.html');
+    cctvTemplate = require('../templates/map.html'),
+    caminfoTemplate = require('../templates/caminfo.html');
 
 L.Icon.Default.imagePath = 'images';
 
 module.exports = Backbone.View.extend({
     template: _.template(cctvTemplate),
+    caminfoTmpl: _.template(caminfoTemplate),
     collection: new cctvCollection(),
     cam: new cctvModel(),
     map: {},
     addCamMarker: {},
     initialize: function(options) {
         this.vent = options.vent;
-        _.bindAll(this, 'drawCam','toggleOverlay', 'hideOverlay', 'showOverlay', 'setView', 'createMarker', 'removeMarker');
+        _.bindAll(this, 'closeInfo','drawCam', 'toggleOverlay', 'hideOverlay', 'showOverlay', 'setView', 'createMarker', 'removeMarker');
 
         this.vent.on('toggle:overlay', this.toggleOverlay);
         this.vent.on('hide:overlay', this.hideOverlay);
@@ -24,7 +26,12 @@ module.exports = Backbone.View.extend({
 
         this.collection.on('add', this.drawCam);
 
+        $(document).on('click', '.caminfo .close-btn', this.closeInfo)
+
         this.render();
+    },
+    closeInfo: function(){
+        $('#details').css({ bottom : '-1000px' });
     },
     render: function() {
 
@@ -86,12 +93,26 @@ module.exports = Backbone.View.extend({
     drawCam: function(model) {
         var latlng = model.get('location');
         if (latlng[0] && latlng[1]) {
-            L.circle(latlng, 15, {
+
+            var circle = L.circle(latlng, 15, {
                 fill: true,
                 stroke: false,
                 fillColor: 'rgb(231,76,60)',
                 fillOpacity: .5
-            }).addTo(this.map);
+            });
+                
+            circle.on('click', function(){
+                var html = '';
+                _.forEach(model.attributes, function(el,i){
+                    html += i +':' + el + '<br />';
+                });
+                $('#details').empty();
+                $('#details').html(this.caminfoTmpl({data : html}));
+                $('#details').css({bottom: 0});
+            }.bind(this));
+
+            circle.addTo(this.map);
+
         }
     },
     hideOverlay: function() {
