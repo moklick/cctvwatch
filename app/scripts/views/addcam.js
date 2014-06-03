@@ -21,10 +21,10 @@ module.exports = BaseView.extend({
         _.bindAll(this, 'saveCamera', 'showMarker','cancelAddCam', 'handleGeoError','updateMarker','nextStep');
         // this.vent.on('addcam:updateMarker', this.updateMarker);
         this.listenTo(this.vent, 'addcam:updateMarker', this.updateMarker);
-        this.addCamLink();
-        this.bindEvents();
-
-        if(user.get('loggedIn')){
+        
+        if(this.user.get('loggedIn')){
+            this.addCamLink();
+            this.bindEvents();
             this.render();
         }else{
             this.showLoginReq();
