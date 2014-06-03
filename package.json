@@ -55,12 +55,14 @@
     "deployURI": "cctv@cctv.antares.uberspace.de:/home/cctv/html",
     "proxy": {
       "enabled": true,
-      "backendURL": "http://cctv.antares.uberspace.de/api/v1/",
+      "backendURL": "http://cctv.antares.uberspace.de/",
       "routes": [
-        "cctv",
-        "login",
-        "logout",
-        "auth"
+        "api/v1/cctv",
+        "auth/twitter",
+        "auth/google",
+        "auth/github",
+        "auth/logout",
+        "auth/token"
       ],
       "cacheDir": "cache"
     }

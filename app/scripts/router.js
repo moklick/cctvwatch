@@ -41,6 +41,18 @@ module.exports = Backbone.Router.extend({
         }.bind(this));
     },
     home: function () {
+
+        $.ajax({
+            url : config.authUrl,
+            dataType : 'json'
+        }).done(function(data){
+             console.log('login sucess');
+            console.log(data)
+        }).error(function(err){
+            console.log('login fail');
+            console.log(err);
+        });
+
         $('#details').empty();
     },
     goto: function(target){
