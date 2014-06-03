@@ -19,6 +19,12 @@ module.exports = Backbone.View.extend({
     },
     goto: function (evt) {
         var link = $(evt.target).attr('data-link');
+
+        if(link === 'logout'){
+            location.href = config.logoutUrl;
+            return false;
+        }
+
         this.vent.trigger('goto', '!/' + link);
         this.toggleMenu();
     },

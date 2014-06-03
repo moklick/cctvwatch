@@ -4,10 +4,12 @@ var MapView = require('./views/map.js'),
     AboutView = require('./views/about.js'),
     AddCamView = require('./views/addcam.js'),
     CamInfoView = require('./views/caminfo.js'),
+    UserModel = require('./models/userModel.js'),
+
     views = {
-        login : LoginView,
-        about : AboutView,
-        addcam : AddCamView,
+        login: LoginView,
+        about: AboutView,
+        addcam: AddCamView,
         caminfo: CamInfoView
     };
 
@@ -17,11 +19,13 @@ module.exports = Backbone.Router.extend({
         '': 'home',
         '!/home': 'home',
         '!/:target': 'goto',
-        '!/info/:id' : 'showInfo' 
+        '!/info/:id': 'showInfo'
     },
-    initialize: function () {
+    initialize: function() {
         this.vent = _.extend({}, Backbone.Events);
-        _.bindAll(this, 'showInfo');
+        this.user = new UserModel();
+
+        _.bindAll(this, 'showInfo', 'handleAuth');
         new HeaderView({
             el: $('.header'),
             vent: this.vent
@@ -32,43 +36,59 @@ module.exports = Backbone.Router.extend({
             vent: this.vent
         });
 
-        this.vent.on('goto', function (link) {
-            this.navigate(link, {trigger: true});
+        this.vent.on('goto', function(link) {
+            this.navigate(link, {
+                trigger: true
+            });
         }.bind(this));
 
-        this.vent.on('route:caminfo', function (link) {
-            this.navigate(link, {trigger: true});
+        this.vent.on('route:caminfo', function(link) {
+            this.navigate(link, {
+                trigger: true
+            });
         }.bind(this));
+
+        if (!this.user.get('loggedIn')) {
+                $.ajax({
+                    url: config.authUrl,
+                    dataType: 'json',
+                    statusCode: {
+                        403: function() {
+                            console.log('not logged in.');
+                        },
+                        200: this.handleAuth
+                    }
+                });
+        }
     },
-    home: function () {
-
-        $.ajax({
-            url : config.authUrl,
-            dataType : 'json'
-        }).done(function(data){
-             console.log('login sucess');
-            console.log(data)
-        }).error(function(err){
-            console.log('login fail');
-            console.log(err);
-        });
-
+    handleAuth: function(data) {
+        if (typeof data._csrf !== 'undefined') {
+            console.log('user logged in.');
+            this.user.set('csrf', data._csrf);
+            this.user.set('loggedIn', true);
+            $('html').addClass('logged-in');
+        }
+    },
+    home: function() {
         $('#details').empty();
     },
-    goto: function(target){
+    goto: function(target) {
         new views[target]({
             el: $('#details'),
             vent: this.vent
         });
     },
-    showInfo: function(camId){
+    showInfo: function(camId) {
 
-        var camModel = this.mapView.collection.where({id : camId});
+        var camModel = this.mapView.collection.where({
+            id: camId
+        });
 
         new views['caminfo']({
             el: $('#details'),
             vent: this.vent,
-            camModel : camModel
+            camModel: camModel,
+            user: this.user
         });
     }
 });
