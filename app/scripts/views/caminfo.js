@@ -1,8 +1,9 @@
 var caminfoTemplate = require('../templates/caminfo.html');
+var BaseView = require('./base.js');
 
-module.exports = Backbone.View.extend({
+module.exports = BaseView.extend({
     events: {
-        'click .menu-close': 'closeDetails',
+        'click .close-btn': 'closeDetails',
         'click .edit-btn': 'editCam'
     },
     template: _.template(caminfoTemplate),
