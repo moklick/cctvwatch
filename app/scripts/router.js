@@ -75,7 +75,8 @@ module.exports = Backbone.Router.extend({
     goto: function(target) {
         new views[target]({
             el: $('#details'),
-            vent: this.vent
+            vent: this.vent,
+            user: this.user
         });
     },
     showInfo: function(camId) {

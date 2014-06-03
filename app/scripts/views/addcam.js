@@ -17,12 +17,19 @@ module.exports = BaseView.extend({
     },
     initialize: function(options) {
         this.vent = options.vent;
+        this.user = options.user;
         _.bindAll(this, 'saveCamera', 'showMarker','cancelAddCam', 'handleGeoError','updateMarker','nextStep');
         // this.vent.on('addcam:updateMarker', this.updateMarker);
         this.listenTo(this.vent, 'addcam:updateMarker', this.updateMarker);
         this.addCamLink();
         this.bindEvents();
-        this.render();
+
+        if(user.get('loggedIn')){
+            this.render();
+        }else{
+            this.showLoginReq();
+        }
+        
     },
     nextStep: function() {
 

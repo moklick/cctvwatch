@@ -12,6 +12,9 @@ var BaseView = Backbone.View.extend({
 
     this.stopListening();
   },
+  showLoginReq: function(){
+    $('.loginreq-msg').fadeIn().delay(3000).fadeOut();
+  },
   render: function(){
     this.$details.empty();
   	this.$el.html(this.template());
