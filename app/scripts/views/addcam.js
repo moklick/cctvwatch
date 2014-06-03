@@ -51,7 +51,11 @@ module.exports = BaseView.extend({
                 type: type,
                 comment : comment
             });
-    
+            
+        if(this.user.get('loggedIn')){
+            camera.set('_csrf',this.user.get('csrf'));
+        }   
+
         camera.save();
 
         this.vent.trigger('map:setView', { latlng : this.markerPosition, zoom : config.map.initZoom })
