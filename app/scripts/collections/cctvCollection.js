@@ -1,6 +1,6 @@
 var cctvModel = require('../models/cctvModel.js');
 
 module.exports = Backbone.Collection.extend({
-	url: '/cctv',
+	url: 'api/v1/cctv',
 	model: cctvModel
 });
