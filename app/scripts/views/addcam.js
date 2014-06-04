@@ -42,7 +42,6 @@ module.exports = BaseView.extend({
     },
     saveCamera: function(evt) {
         evt.preventDefault();
-
         var $form = $('.step form'),
             type = $form.find('input[type=\'radio\']:checked').val(),
             comment = $form.find('.comment').val(),
@@ -94,6 +93,7 @@ module.exports = BaseView.extend({
         this.closeDetails();
     },
     updateMarker: function(params) {
-        this.markerPosition = params.latlng;
+        this.markerPosition[0] = params.latlng.lat;
+        this.markerPosition[1] = params.latlng.lng;
     }
 });
