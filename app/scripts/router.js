@@ -36,17 +36,11 @@ module.exports = Backbone.Router.extend({
             vent: this.vent
         });
 
-        this.vent.on('goto', function(link) {
+        this.vent.on('goto', _.bind(function(link) {
             this.navigate(link, {
                 trigger: true
             });
-        }.bind(this));
-
-        this.vent.on('route:caminfo', function(link) {
-            this.navigate(link, {
-                trigger: true
-            });
-        }.bind(this));
+        },this));
 
         if (!this.user.get('loggedIn')) {
                 $.ajax({
@@ -54,7 +48,8 @@ module.exports = Backbone.Router.extend({
                     dataType: 'json',
                     statusCode: {
                         403: function() {
-                            console.log('not logged in.');
+                            // TODO: remove 403 forbidden error
+                            // console.log('not logged in.');
                         },
                         200: this.handleAuth
                     }
@@ -63,14 +58,13 @@ module.exports = Backbone.Router.extend({
     },
     handleAuth: function(data) {
         if (typeof data._csrf !== 'undefined') {
-            console.log('user logged in.');
             this.user.set('csrf', data._csrf);
             this.user.set('loggedIn', true);
             $('html').addClass('logged-in');
         }
     },
     home: function() {
-        $('#details').empty();
+        //$('#details').empty();
     },
     goto: function(target) {
         new views[target]({

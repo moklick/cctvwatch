@@ -11,7 +11,7 @@ module.exports = BaseView.extend({
     },
     markerPosition: [],
     events: {
-        'click .close-btn': 'cancelAddCam',
+        'click .close-addcam': 'cancelAddCam',
         'click .next-step': 'nextStep',
         'click .save-camera': 'saveCamera'
     },

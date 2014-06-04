@@ -46,7 +46,7 @@ module.exports = Backbone.View.extend({
     },
 
     createMarker: function(params) {
-
+         
         // handle marker without geolocated user
         if (params.latlng === -1) {
             params.latlng = this.map.getCenter();
@@ -63,7 +63,7 @@ module.exports = Backbone.View.extend({
 
         this.addCamMarker.on('drag', _.bind(function(e) {
             this.vent.trigger('addcam:updateMarker', {
-                latlng: this.addCamMarker._latlng
+                latlng: this.addCamMarker.getLatLng()
             })
         }, this));
 
@@ -71,8 +71,9 @@ module.exports = Backbone.View.extend({
 
     },
     removeMarker: function() {
-        if (typeof this.addCamMarker._latlng !== 'undefined') {
+        if (typeof this.addCamMarker.getLatLng !== 'undefined') {
             this.map.removeLayer(this.addCamMarker);
+            this.addCamMarker = {};
         }
     },
     initMap: function() {
@@ -104,7 +105,7 @@ module.exports = Backbone.View.extend({
                 latlng[0] -= 0.005;
                 this.map.setView(latlng, this.map.getZoom());
 
-                this.vent.trigger('route:caminfo', '!/info/' + model.get('id'))
+                this.vent.trigger('goto', '!/info/' + model.get('id'))
             }.bind(this));
 
             circle.addTo(this.map);

@@ -13,6 +13,7 @@ var BaseView = Backbone.View.extend({
     this.stopListening();
   },
   showLoginReq: function(){
+    this.vent.trigger('goto', '');
     $('.loginreq-msg').fadeIn().delay(3000).fadeOut();
   },
   render: function(){
