@@ -3,12 +3,15 @@ var BaseView = require('./base.js');
 
 module.exports = BaseView.extend({
     events: {
-        'click .close-btn': 'closeDetails',
+        'click .close-info': 'closeDetails',
         'click .edit-btn': 'editCam'
     },
     template: _.template(caminfoTemplate),
     initialize: function(options) {
         this.vent = options.vent;
+        this.user = options.user;
+        _.bindAll(this,'editCam');
+
         this.camModel = options.camModel[0];
         this.$details = $('#details');
 
@@ -34,6 +37,11 @@ module.exports = BaseView.extend({
         return this;
     },
     editCam: function() {
-        console.log('edit cam');
+        if(this.user.isLoggedIn()){
+            console.log('edit cam');
+        }else{
+            this.showLoginReq();
+        }
+        
     }
 });

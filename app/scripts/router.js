@@ -42,7 +42,7 @@ module.exports = Backbone.Router.extend({
             });
         },this));
 
-        if (!this.user.get('loggedIn')) {
+        if (!this.user.isLoggedIn()) {
                 $.ajax({
                     url: config.authUrl,
                     dataType: 'json',

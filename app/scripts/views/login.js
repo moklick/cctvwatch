@@ -3,7 +3,7 @@ var BaseView = require('./base.js');
 
 module.exports = BaseView.extend({
 	events: {
-        'click .menu-close': 'closeDetails',
+        'click .close-login': 'closeDetails',
     },
     template: _.template(loginTemplate),
     initialize:function(options){

@@ -10,6 +10,7 @@ var BaseView = Backbone.View.extend({
     this.vent.trigger('goto', '');
     this.vent.trigger('map:removeMarker');
 
+    this.undelegateEvents();
     this.stopListening();
   },
   showLoginReq: function(){

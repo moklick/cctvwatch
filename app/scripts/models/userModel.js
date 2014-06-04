@@ -3,6 +3,9 @@ module.exports = Backbone.Model.extend({
         csrf : undefined,
         loggedIn: false
     },
+    isLoggedIn: function(){
+    	return this.loggedIn;
+    },
     initialize: function(){
 
     }

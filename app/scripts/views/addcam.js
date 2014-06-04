@@ -22,7 +22,7 @@ module.exports = BaseView.extend({
         // this.vent.on('addcam:updateMarker', this.updateMarker);
         this.listenTo(this.vent, 'addcam:updateMarker', this.updateMarker);
         
-        if(this.user.get('loggedIn')){
+        if(this.user.isLoggedIn()){
             this.addCamLink();
             this.bindEvents();
             this.render();
