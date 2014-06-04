@@ -4,7 +4,7 @@ module.exports = Backbone.Model.extend({
         loggedIn: false
     },
     isLoggedIn: function(){
-    	return this.loggedIn;
+    	return this.get('loggedIn');
     },
     initialize: function(){
 
