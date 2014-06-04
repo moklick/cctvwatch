@@ -1,7 +1,8 @@
 module.exports = Backbone.Model.extend({
     url: 'api/v1/cctv',
     defaults: {
-        location : [],
+        lat : 0,
+        lng: 0,
         type: 'no type defined',
         comment: 'no comment',
         direction: 'no direction defined',

@@ -47,7 +47,8 @@ module.exports = BaseView.extend({
             type = $form.find('input[type=\'radio\']:checked').val(),
             comment = $form.find('.comment').val(),
             camera = new CctvModel({
-                location: this.markerPosition,
+                lat: this.markerPosition[0],
+                lng: this.markerPosition[1],
                 type: type,
                 comment : comment
             });
