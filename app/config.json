@@ -7,7 +7,7 @@
 		"label": "<a href='http://mapbox.com/about/maps' target='_blank'>Mapbox</a> |  Map data © <a href='http://www.openstreetmap.org'>OpenStreetMap contributors</a>"
 	},
 	"imagePath": "images",
-	"authUrl" : "http://cctv.antares.uberspace.de/auth/token",
-	"logoutUrl" : "http://cctv.antares.uberspace.de/auth/logout"
+	"authUrl" : "http://cctvwatch.de/auth/token",
+	"logoutUrl" : "http://cctvwatch.de/auth/logout"
 
 }

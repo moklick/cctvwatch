@@ -161,8 +161,8 @@ gulp.task('deploy', function() {
 gulp.task('libs', function () {
     return gulp.src('app/scripts/lib/*.js')
         .pipe($.concat('libs.js'))
-        .pipe(gulp.dest('dist/scripts/lib'))
         .pipe($.size())
+        .pipe(gulp.dest('dist/scripts/lib'))
         .pipe($.connect.reload());
 });
 

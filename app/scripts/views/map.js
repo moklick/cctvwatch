@@ -91,8 +91,10 @@ module.exports = Backbone.View.extend({
     },
 
     drawCam: function(model) {
-        var latlng = model.get('location');
-        if (latlng[0] && latlng[1]) {
+
+        var latlng = [model.get('lat'), model.get('lng')]
+
+        if (typeof latlng !== 'undefined') {
 
             var circle = L.circle(latlng, 15, {
                 fill: true,
@@ -100,7 +102,7 @@ module.exports = Backbone.View.extend({
                 fillColor: 'rgb(231,76,60)',
                 fillOpacity: .5
             });
-                
+            
             circle.on('click', function(){
                 latlng[0] -= 0.005;
                 this.map.setView(latlng, this.map.getZoom());
