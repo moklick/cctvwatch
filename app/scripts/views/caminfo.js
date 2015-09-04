@@ -1,4 +1,4 @@
-var caminfoTemplate = require('../templates/caminfo.html');
+var caminfoTemplate = require('html!../templates/caminfo.html');
 var BaseView = require('./base.js');
 
 module.exports = BaseView.extend({

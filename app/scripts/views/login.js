@@ -1,4 +1,4 @@
-var loginTemplate = require('../templates/login.html');
+var loginTemplate = require('html!../templates/login.html');
 var BaseView = require('./base.js');
 
 module.exports = BaseView.extend({

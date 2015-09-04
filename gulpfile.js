@@ -3,11 +3,16 @@
 
 var path = require('path'),
     gulp = require('gulp'),
+    del = require('del'),
+    config = require(path.resolve(__dirname, 'package')).devConfig,
+    $ = require('gulp-load-plugins')(),
     bower = 'app/bower_components',
-    config = require(path.resolve(__dirname, 'package')).devConfig;
+    app = 'app/',
+    dist = 'dist/';
 
-// Load plugins
-var $ = require('gulp-load-plugins')();
+var environment = $.util.env.type || 'development';
+var isProduction = environment === 'production';
+var webpackConfig = require('./webpack.config.js').getConfig(environment);
 
 // Styles
 gulp.task('styles', function () {
@@ -26,27 +31,13 @@ gulp.task('styles', function () {
 });
 
 // Scripts
-gulp.task('scripts', function () {
-    var stringify = require('stringify'),
-        condition = typeof gulp.tasks.release !== 'undefined' ? gulp.tasks.release.running : false;
-    return gulp.src('app/scripts/main.js')
-        .pipe($.browserify({
-            debug: true,
-            transform: [
-        'debowerify',
-        stringify(['.html'])
-      ],
-            // Note: At this time it seems that you will also have to 
-            // setup browserify-shims in package.json to correctly handle
-            // the exclusion of vendor vendor libraries from your bundle
-            extensions: ['.js'],
-            external: ['lodash','jquery']
-        }))
-
-    .pipe($.if(condition, $.uglify()))
-    .pipe(gulp.dest('dist/scripts'))
-        .pipe($.size())
-        .pipe($.connect.reload());
+gulp.task('scripts', function() {
+  return gulp.src(webpackConfig.entry)
+    .pipe($.webpack(webpackConfig))
+    .pipe(isProduction ? $.uglifyjs() : $.util.noop())
+    .pipe($.size({ title : 'scripts' }))
+    .pipe(gulp.dest(dist + 'scripts/'))
+    .pipe($.connect.reload());
 });
 
 // HTML
@@ -66,57 +57,50 @@ gulp.task('lint', function () {
 
 // Images
 gulp.task('images', function () {
-    return gulp.src(['app/images/**/*', bower + '/leaflet-bower/dist/images/*'])
-        .pipe($.imagemin({
-            optimizationLevel: 3,
-            progressive: true,
-            interlaced: true
-        })) 
+    return gulp.src(['app/images/**/*', 'node_modules/leaflet/dist/images/*'])
         .pipe(gulp.dest('dist/images'))
         .pipe($.size());
 });
 
-// Clean
-gulp.task('clean', function () {
-    return gulp.src(['dist/styles', 'dist/scripts', 'dist/images'], {
-        read: false
-    }).pipe($.clean());
+
+gulp.task('clean', function(cb) {
+  del(['dist/styles', 'dist/scripts', 'dist/images'], cb);
 });
 
 // Connect
-gulp.task('connect', $.connect.server({
-    root: __dirname + '/dist',
-    port: 9000,
-    livereload: {
-        port: 35729
-    },
-    open: {
-        file: 'index.html',
-        browser: 'Google Chrome'
-    },
-    middleware: function connect(connect, o) {
-        if (config.proxy.enabled === true) {
-            var proxy = require('proxy-middleware'),
-                memorize = require('connect-memorize'),
-                url = require('url');
-            
-            var baseURL = config.proxy.backendURL,
-                middlewares = [];
+gulp.task('connect', function(){
 
-            config.proxy.routes.forEach(function(route) {
-                middlewares.push(memorize({
-                    match: '/' + route, // handle only urls starting with $expression
-                    memorize: true, // store stuff
-                    recall: true, // serve previously stored
-                    storageDir: config.proxy.cacheDir
-                }));
-                middlewares.push(connect().use('/' + route, proxy(url.parse(baseURL + route))));
-            });
-            
-            return middlewares;
+    $.connect.server({
+        root: __dirname + '/dist',
+        port: 9000,
+        livereload: {
+            port: 35729
+        },
+        middleware: function connect(connect, o) {
+            if (config.proxy.enabled === true) {
+                var proxy = require('proxy-middleware'),
+                    memorize = require('connect-memorize'),
+                    url = require('url');
+                
+                var baseURL = config.proxy.backendURL,
+                    middlewares = [];
+
+                config.proxy.routes.forEach(function(route) {
+                    middlewares.push(memorize({
+                        match: '/' + route, // handle only urls starting with $expression
+                        memorize: true, // store stuff
+                        recall: true, // serve previously stored
+                        storageDir: config.proxy.cacheDir
+                    }));
+                    middlewares.push(connect().use('/' + route, proxy(url.parse(baseURL + route))));
+                });
+                
+                return middlewares;
+            }
         }
-    }
-}));
+    });
+
+});
 
 // Watch
 gulp.task('watch', ['connect'], function () {

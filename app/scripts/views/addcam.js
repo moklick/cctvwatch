@@ -1,4 +1,4 @@
-var addcamTemplate = require('../templates/addcam.html');
+var addcamTemplate = require('html!../templates/addcam.html');
 var CctvModel = require('../models/cctvModel.js');
 var BaseView = require('./base.js');
 

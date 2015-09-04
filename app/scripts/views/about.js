@@ -1,4 +1,4 @@
-var aboutTemplate = require('../templates/about.html');
+var aboutTemplate = require('html!../templates/about.html');
 var BaseView = require('./base.js');
 
 module.exports = BaseView.extend({

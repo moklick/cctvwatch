@@ -1,5 +1,5 @@
 module.exports = Backbone.Model.extend({
-    url: 'api/v1/cctv',
+    url: 'api/v1/cctv?limit=0',
     defaults: {
         lat : 0,
         lng: 0,
@@ -11,5 +11,4 @@ module.exports = Backbone.Model.extend({
     initialize: function(){
 
     }
-
 });

@@ -1,4 +1,4 @@
-var headerTemplate = require('../templates/header.html');
+var headerTemplate = require('html!../templates/header.html');
 
 module.exports = Backbone.View.extend({
     template: _.template(headerTemplate),

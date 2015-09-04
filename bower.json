@@ -1,11 +1,7 @@
 {
   "name": "cctvwatch",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "dependencies": {
-    "jquery": ">=2.1.0",
-    "lodash": ">=2.4.1",
-    "backbone": ">=1.1.0",
-    "leaflet-bower": "~0.6.4",
     "font-awesome": "~4.1.0"
   }
 }

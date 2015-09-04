@@ -1,6 +1,6 @@
 var cctvCollection = require('../collections/cctvCollection.js'),
     cctvModel = require('../models/cctvModel.js'),
-    cctvTemplate = require('../templates/map.html');
+    cctvTemplate = require('html!../templates/map.html');
 
 L.Icon.Default.imagePath = 'images';
 
