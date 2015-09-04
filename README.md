@@ -2,7 +2,7 @@
 
 Map application that displays CCTV cameras and lets you upload new ones using the [cctvwatch-api](https://github.com/moklick/cctvwatch-api). 
 
-Check out the current version here: [cctvwatch](http://cctv.antares.uberspace.de/)
+Check out the current version here: [cctvwatch](http://cctvwatch.de/)
 
 ## Installation 
 ``` 
